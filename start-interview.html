@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Interview | CareerPrep AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">CareerPrep AI</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="interview.html" class="active">Interview Preparation</a>
+            <a href="explore.html">Explore Career</a>
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <section class="setup-card">
+            <h1>You're Ready to Practise!</h1>
+            <p id="candidateWelcome"></p>
+            <p>
+                Your interview room will appear here in the next development step.
+                The AI interviewer and voice interaction are not connected yet.
+            </p>
+            <a href="interview.html" class="card-button">Back to Settings</a>
+        </section>
+    </main>
+
+    <script>
+        try {
+            const saved = sessionStorage.getItem("careerPrepCandidate");
+            const candidate = saved ? JSON.parse(saved) : null;
+
+            document.getElementById("candidateWelcome").textContent =
+                candidate && candidate.name
+                    ? "Welcome, " + candidate.name + "! Your introduction has been saved for this browser session."
+                    : "Please complete your introduction first.";
+        } catch (error) {
+            document.getElementById("candidateWelcome").textContent =
+                "Please return to the introduction page and try again.";
+        }
+    </script>
+</body>
+</html>
