@@ -268,9 +268,29 @@
         validateSettings();
     });
 
-    role.addEventListener("change", function() {
+        role.addEventListener("change", function() {
         resetSelect(experience, "Select experience");
-        experience.disabled = !role.value;
+
+        const levels = [
+            ["Fresher", "Fresher"],
+            ["0–2 years", "0–2 years"],
+            ["3–5 years", "3–5 years"],
+            ["6–10 years", "6–10 years"],
+            ["10+ years", "10+ years"]
+        ];
+
+        if (role.value) {
+            levels.forEach(function(level) {
+                const option = document.createElement("option");
+                option.value = level[0];
+                option.textContent = level[1];
+                experience.appendChild(option);
+            });
+
+            experience.disabled = false;
+        } else {
+            experience.disabled = true;
+        }
 
         hideReview();
         validateSettings();
