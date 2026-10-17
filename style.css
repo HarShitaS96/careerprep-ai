@@ -1,4 +1,4 @@
-
+```css
 /* =========================
    1. GLOBAL STYLES
 ========================= */
@@ -312,8 +312,8 @@ footer {
     .setup-card {
         padding: 20px 16px;
     }
-
 }
+
 .form-heading {
     font-size: 20px;
     margin-bottom: 22px;
@@ -360,4 +360,58 @@ footer {
     display: none !important;
 }
 
+/* =========================
+   10. CAREER DETAILS BUTTONS
+========================= */
 
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0;
+}
+
+.actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 46px;
+    padding: 12px 18px;
+    border: 1px solid #d9deea;
+    border-radius: 9px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.4;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.actions .card-button {
+    margin: 0;
+    border: 1px solid #5145d9;
+}
+
+.actions .secondary-action {
+    background: #ffffff;
+    color: #5145d9;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.actions .secondary-action:hover {
+    background: #f0efff;
+    border-color: #5145d9;
+}
+
+@media (max-width: 480px) {
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .actions a {
+        width: 100%;
+    }
+}
+```
