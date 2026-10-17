@@ -21,54 +21,30 @@
         <section class="setup-card">
             <h1>Let's Get to Know You</h1>
             <p class="helper-text">
-                Before your interview begins, tell us a little about yourself.
-                This helps us personalize your interview experience.
+                Tell us about yourself before your interview begins.
             </p>
 
             <form id="introForm">
                 <label for="candidateName">Full Name</label>
-                <input
-                    type="text"
-                    id="candidateName"
-                    placeholder="Enter your name"
-                    required
-                >
+                <input type="text" id="candidateName" placeholder="Enter your name" required>
 
                 <label for="education">Education</label>
-                <input
-                    type="text"
-                    id="education"
-                    placeholder="e.g. B.Tech in Computer Science"
-                    required
-                >
+                <input type="text" id="education" placeholder="e.g. B.Tech in Computer Science" required>
 
                 <label for="experienceDetails">Work Experience</label>
-                <textarea
-                    id="experienceDetails"
-                    rows="3"
-                    placeholder="Briefly describe your experience, or mention that you are a fresher."
-                    required
-                ></textarea>
+                <textarea id="experienceDetails" rows="3"
+                    placeholder="Describe your experience, or mention that you are a fresher." required></textarea>
 
                 <label for="skills">Key Skills</label>
-                <textarea
-                    id="skills"
-                    rows="3"
-                    placeholder="e.g. SQL, Python, communication, problem-solving"
-                    required
-                ></textarea>
+                <textarea id="skills" rows="3"
+                    placeholder="e.g. SQL, Python, communication, problem-solving" required></textarea>
 
                 <label for="introduction">Introduce Yourself</label>
-                <textarea
-                    id="introduction"
-                    rows="5"
-                    placeholder="Tell us about yourself, your background, experience and career goals."
-                    required
-                ></textarea>
+                <textarea id="introduction" rows="5"
+                    placeholder="Tell us about your background, experience and career goals." required></textarea>
 
                 <p class="helper-text">
-                    Take your time. You can prepare your introduction here
-                    before practising it aloud.
+                    Your information will be saved temporarily in this browser session.
                 </p>
 
                 <button type="submit" class="card-button">
@@ -92,19 +68,12 @@
                 introduction: document.getElementById("introduction").value.trim()
             };
 
-            if (Object.values(candidate).some(value => !value)) {
-                document.getElementById("introMessage").textContent =
-                    "Please complete all fields before continuing.";
-                return;
-            }
-
             try {
                 sessionStorage.setItem("careerPrepCandidate", JSON.stringify(candidate));
-                document.getElementById("introMessage").textContent =
-                    "Your introduction is ready. The actual AI interview will be connected in a later step.";
+                window.location.href = "start-interview.html";
             } catch (error) {
                 document.getElementById("introMessage").textContent =
-                    "Your browser could not save this information. Please try again.";
+                    "Unable to save your details in this browser. Please try again.";
             }
         });
     </script>
