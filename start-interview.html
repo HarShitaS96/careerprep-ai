@@ -2,220 +2,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interview Practice | CareerPrep AI</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .interview-room {
-            max-width: 850px;
-            margin: 40px auto;
-        }
-        .question-box {
-            background: #f7f8fc;
-            border: 1px solid #e7e9f2;
-            border-radius: 14px;
-            padding: 24px;
-            margin: 24px 0;
-        }
-        .question-text {
-            font-size: 22px;
-            line-height: 1.5;
-        }
-        .answer-input {
-            box-sizing: border-box;
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #d9dce8;
-            border-radius: 10px;
-            font: inherit;
-            margin: 12px 0 18px;
-        }
-        .progress-track {
-            height: 8px;
-            background: #e7e9f2;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 18px 0;
-        }
-        .progress-fill {
-            height: 100%;
-            width: 0;
-            background: #5145d9;
-        }
-        .room-note {
-            color: #626b7d;
-            line-height: 1.6;
-        }
-        .room-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .room-actions button {
-            cursor: pointer;
-            border: none;
-        }
-        .secondary-action {
-            background: #ecebff;
-            color: #5145d9;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interview Room | CareerPrep AI</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.room { max-width: 850px; margin: 40px auto; }
+.question-box { background: #f7f8fc; border: 1px solid #e7e9f2; border-radius: 14px; padding: 24px; margin: 24px 0; }
+.question-text { font-size: 22px; line-height: 1.5; }
+.answer-input { box-sizing: border-box; width: 100%; padding: 14px; border: 1px solid #d9dce8; border-radius: 10px; font: inherit; margin: 12px 0 18px; }
+.progress-track { height: 8px; background: #e7e9f2; border-radius: 10px; overflow: hidden; margin: 18px 0; }
+.progress-fill { height: 100%; width: 0; background: #5145d9; transition: width .2s; }
+.room-note { color: #626b7d; line-height: 1.6; }
+.room-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.room-actions button { cursor: pointer; border: none; }
+.secondary-action { background: #ecebff; color: #5145d9; padding: 12px 20px; border-radius: 8px; font-weight: 600; }
+</style>
 </head>
 <body>
+<nav class="navbar">
+    <a href="index.html" class="logo">CareerPrep AI</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="interview.html" class="active">Interview Preparation</a>
+        <a href="explore.html">Explore Career</a>
+    </div>
+</nav>
 
-    <nav class="navbar">
-        <a href="index.html" class="logo">CareerPrep AI</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="interview.html" class="active">Interview Preparation</a>
-            <a href="explore.html">Explore Career</a>
+<main class="page-container room">
+<section class="setup-card">
+    <h1>Interview Practice Room</h1>
+    <p id="welcome" class="room-note"></p>
+    <p id="settingsSummary" class="room-note"></p>
+    <p id="questionCount">Question 1</p>
+
+    <div class="progress-track">
+        <div id="progressFill" class="progress-fill"></div>
+    </div>
+
+    <div class="question-box">
+        <p id="questionNumber">QUESTION 1</p>
+        <h2 id="questionText" class="question-text">Loading your question...</h2>
+    </div>
+
+    <form id="answerForm">
+        <label for="answerInput">Your Answer</label>
+        <textarea id="answerInput" class="answer-input" rows="7"
+            placeholder="Type your answer here..." required></textarea>
+        <p id="message" class="room-note" aria-live="polite"></p>
+        <div class="room-actions">
+            <button type="submit" class="card-button" id="nextButton">Save Answer & Continue</button>
+            <button type="button" class="secondary-action" id="exitButton">Exit Practice</button>
         </div>
-    </nav>
+    </form>
 
-    <main class="page-container interview-room">
-        <section class="setup-card">
-            <h1>Interview Practice Room</h1>
-            <p id="welcome" class="room-note">Your practice interview is ready.</p>
-            <p id="questionCount">Question 1 of 5</p>
+    <p class="room-note">These are sample questions selected by your settings. AI-generated questions and automated evaluation are not connected yet.</p>
+</section>
+</main>
 
-            <div class="progress-track">
-                <div id="progressFill" class="progress-fill"></div>
-            </div>
+<script>
+const questionBank = {
+    "SAP HANA Consultant": [
+        "Explain the difference between a SAP HANA calculation view and a SQLScript procedure.",
+        "How would you investigate and optimize a slow-running calculation view?",
+        "Explain how joins, unions and aggregation affect a HANA data model.",
+        "Describe a production issue you handled and how you identified its root cause.",
+        "How do you validate data accuracy when developing an enterprise data model?"
+    ],
+    "Software Developer": [
+        "Explain how you would design and implement a reliable software feature.",
+        "How do you troubleshoot a bug that you cannot reproduce consistently?",
+        "Explain the difference between unit testing and integration testing.",
+        "Describe a challenging development problem and how you solved it.",
+        "How do you ensure your code is maintainable and efficient?"
+    ],
+    "Data Analyst": [
+        "How would you investigate a dataset containing missing or inconsistent values?",
+        "Explain how you would use SQL to summarize data for a business report.",
+        "How do you choose meaningful metrics for a dashboard?",
+        "Describe a time when your analysis helped answer a business question.",
+        "How would you explain an unexpected trend in a report to a stakeholder?"
+    ],
+    "Data Engineer": [
+        "Describe the main stages of a data pipeline.",
+        "How would you identify and handle duplicate records in a data pipeline?",
+        "How would you troubleshoot a pipeline that suddenly takes much longer to run?",
+        "Explain how you would validate data between a source and target system.",
+        "What would you consider when designing a scalable data pipeline?"
+    ],
+    "Software Tester / QA Engineer": [
+        "How would you create test cases for a new feature?",
+        "Explain the difference between severity and priority in defect management.",
+        "How would you test a feature when requirements are incomplete?",
+        "Describe how you would investigate an intermittent defect.",
+        "How do you decide what to include in regression testing?"
+    ],
+    "Business Analyst": [
+        "How do you gather and document requirements from stakeholders?",
+        "What would you do if two stakeholders gave conflicting requirements?",
+        "How do you confirm that a delivered solution meets business needs?",
+        "Describe a time you clarified an ambiguous requirement.",
+        "How would you prioritize requirements when timelines are limited?"
+    ],
+    "Project Manager": [
+        "How would you handle a project that is falling behind schedule?",
+        "How do you manage competing priorities across stakeholders?",
+        "How would you communicate a major project risk?",
+        "Describe how you handled a disagreement within a team.",
+        "How do you measure whether a project is progressing successfully?"
+    ],
+    "Mechanical Engineer": [
+        "Explain how you approach a mechanical design problem.",
+        "How would you investigate a recurring equipment failure?",
+        "What factors do you consider when selecting a material for a component?",
+        "Describe a technical challenge you have solved.",
+        "How do you balance quality, cost and performance?"
+    ],
+    "Civil Engineer": [
+        "What factors do you consider when planning a construction project?",
+        "How would you investigate a quality issue at a construction site?",
+        "How do you coordinate work when project activities are delayed?",
+        "Describe a technical or site challenge you have handled.",
+        "How do you maintain safety and quality standards on a project?"
+    ],
+    "Electrical Engineer": [
+        "How would you approach troubleshooting an electrical system fault?",
+        "What safety checks are important before electrical maintenance?",
+        "How do you interpret an electrical schematic?",
+        "Describe a technical issue you have resolved.",
+        "How do you verify that a system operates within its required limits?"
+    ],
+    "Electronics Engineer": [
+        "How would you troubleshoot a circuit that is not working as expected?",
+        "Explain how you would select components for a circuit design.",
+        "What is the purpose of testing a prototype before production?",
+        "Describe an electronics problem you have solved.",
+        "How would you diagnose intermittent hardware failures?"
+    ],
+    "Quality Engineer": [
+        "How would you investigate a recurring quality defect?",
+        "Explain how you would identify the root cause of a problem.",
+        "What measures help prevent defects from reaching customers?",
+        "Describe how you have used data to improve quality.",
+        "How do you verify that corrective actions are effective?"
+    ],
+    "Project Engineer": [
+        "How do you track progress against a project plan?",
+        "How would you handle a delay caused by a supplier?",
+        "How do you coordinate technical teams and project stakeholders?",
+        "Describe a project challenge and how you addressed it.",
+        "How do you manage risks while keeping work on schedule?"
+    ],
+    "Customer Support Executive": [
+        "How would you handle an upset customer?",
+        "How do you make sure you understand a customer's problem?",
+        "What would you do if you could not resolve an issue immediately?",
+        "Describe a time you helped someone solve a problem.",
+        "How would you manage multiple customer requests at once?"
+    ],
+    "Technical Support Executive": [
+        "How would you troubleshoot an issue you have never encountered before?",
+        "How do you explain a technical problem to a non-technical customer?",
+        "What information would you collect before escalating an incident?",
+        "Describe a technical issue you have helped resolve.",
+        "How would you prioritize several open support incidents?"
+    ],
+    "Team Leader": [
+        "How would you support a team member whose performance has declined?",
+        "How do you allocate work during a high-volume period?",
+        "How would you resolve a disagreement between team members?",
+        "How do you monitor team quality and productivity?",
+        "Describe how you helped a team achieve a difficult target."
+    ],
+    "Quality Analyst": [
+        "How would you identify recurring quality issues in customer interactions?",
+        "How do you give constructive feedback to an employee?",
+        "How would you maintain consistency when evaluating performance?",
+        "Describe how you used evidence to explain a quality finding.",
+        "How do you recommend improvements based on quality results?"
+    ],
+    "Operations Manager": [
+        "How would you improve an underperforming operational process?",
+        "How do you balance service quality, cost and productivity?",
+        "How would you respond to a sudden increase in workload?",
+        "Describe a process improvement you would implement.",
+        "How do you communicate operational risks to leadership?"
+    ],
+    "HR Executive": [
+        "How would you handle confidential employee information?",
+        "How do you approach a disagreement between an employee and manager?",
+        "What steps would you take to coordinate a recruitment process?",
+        "Describe how you would handle multiple urgent HR requests.",
+        "How do you ensure fair and consistent HR processes?"
+    ],
+    "Financial Analyst": [
+        "How would you investigate a significant variance in a financial report?",
+        "What is the difference between a budget and a forecast?",
+        "How would you check the accuracy of financial data?",
+        "Describe how you would present a financial finding to management.",
+        "How do you prioritize accuracy when working under a tight deadline?"
+    ],
+    "Marketing Executive": [
+        "How would you identify the target audience for a campaign?",
+        "Which metrics would you use to evaluate a marketing campaign?",
+        "How would you respond if a campaign was not meeting its goals?",
+        "Describe how you would coordinate a campaign across teams.",
+        "How would you use customer feedback to improve marketing?"
+    ]
+};
 
-            <div class="question-box">
-                <p id="questionNumber">QUESTION 1</p>
-                <h2 id="questionText" class="question-text">
-                    Tell me about yourself.
-                </h2>
-            </div>
+const generalQuestions = [
+    "Tell me about yourself, including your education, experience and key skills.",
+    "What are your strongest skills, and how have you used them?",
+    "Describe a challenging problem you faced and how you solved it.",
+    "Tell me about a time you worked with others to achieve a goal.",
+    "Why are you interested in this role, and what would you like to learn next?"
+];
 
-            <form id="answerForm">
-                <label for="answerInput">Your Answer</label>
-                <textarea
-                    id="answerInput"
-                    class="answer-input"
-                    rows="7"
-                    placeholder="Type your answer here..."
-                    required
-                ></textarea>
+const behavioralQuestions = [
+    "Tell me about yourself and what motivates you professionally.",
+    "Describe a challenging situation and how you handled it.",
+    "Tell me about a time you received constructive feedback.",
+    "Describe a time you worked with someone whose approach differed from yours.",
+    "What is one skill you are actively trying to improve, and why?"
+];
 
-                <p id="message" class="room-note" aria-live="polite"></p>
+const managerialQuestions = [
+    "How would you prioritize several urgent tasks with competing deadlines?",
+    "Describe how you would resolve a disagreement within your team.",
+    "How would you communicate a delay or risk to a stakeholder?",
+    "How would you support a team member who is struggling?",
+    "How do you decide whether a project or task has been successful?"
+];
 
-                <div class="room-actions">
-                    <button type="submit" class="card-button" id="nextButton">
-                        Save Answer & Continue
-                    </button>
-                    <button type="button" class="secondary-action" id="exitButton">
-                        Exit Practice
-                    </button>
-                </div>
-            </form>
+let settings = {};
+let questions = generalQuestions;
+let answers = [];
+let currentQuestion = 0;
 
-            <p class="room-note">
-                This is a sample practice interview. AI-generated questions and
-                automated feedback will be added in a later step.
-            </p>
-        </section>
-    </main>
+try {
+    settings = JSON.parse(sessionStorage.getItem("careerPrepSettings") || "{}");
+    const candidate = JSON.parse(sessionStorage.getItem("careerPrepCandidate") || "null");
+    const savedAnswers = JSON.parse(sessionStorage.getItem("careerPrepAnswers") || "[]");
 
-    <script>
-        const questions = [
-            "Tell me about yourself, including your education, experience and key skills.",
-            "What are your strongest skills, and how have you used them?",
-            "Describe a challenging problem you faced and how you solved it.",
-            "Tell me about a time you worked with others to achieve a goal.",
-            "Why are you interested in this role, and what would you like to learn next?"
-        ];
+    if (candidate && candidate.name) {
+        document.getElementById("welcome").textContent =
+            "Good luck, " + candidate.name + "! Let's begin.";
+    } else {
+        document.getElementById("welcome").textContent = "Let's begin your practice interview.";
+    }
 
-        let currentQuestion = 0;
-        let answers = [];
+    if (settings.role) {
+        document.getElementById("settingsSummary").textContent =
+            "Role: " + settings.role +
+            " | Experience: " + (settings.experience || "Not specified") +
+            " | Type: " + (settings.interviewType || "Mixed") +
+            " | Difficulty: " + (settings.difficulty || "As per Experience");
+    }
 
-        const answerInput = document.getElementById("answerInput");
-        const message = document.getElementById("message");
+    if (Array.isArray(savedAnswers)) {
+        answers = savedAnswers;
+    }
+} catch (error) {
+    settings = {};
+    answers = [];
+}
 
-        try {
-            const candidate = JSON.parse(
-                sessionStorage.getItem("careerPrepCandidate") || "null"
-            );
+const roleQuestions = questionBank[settings.role] || generalQuestions;
 
-            if (candidate && candidate.name) {
-                document.getElementById("welcome").textContent =
-                    "Good luck, " + candidate.name + "! Let's begin.";
-            }
+if (settings.interviewType === "HR / Behavioral") {
+    questions = behavioralQuestions;
+} else if (settings.interviewType === "Managerial") {
+    questions = managerialQuestions;
+} else if (settings.interviewType === "Technical") {
+    questions = roleQuestions;
+} else {
+    questions = [
+        roleQuestions[0],
+        behavioralQuestions[1],
+        roleQuestions[1],
+        managerialQuestions[2],
+        roleQuestions[4]
+    ];
+}
 
-            const savedAnswers = JSON.parse(
-                sessionStorage.getItem("careerPrepAnswers") || "[]"
-            );
+/* Add experience-sensitive wording to the opening question. */
+if (settings.experience === "Fresher") {
+    questions[0] = "As a fresher, tell me about your education, relevant projects, key skills and interest in " +
+        (settings.role || "your chosen role") + ".";
+} else if (settings.experience === "6–10 years" || settings.experience === "10+ years") {
+    questions[0] = "Summarize your professional experience, key achievements and expertise relevant to " +
+        (settings.role || "your chosen role") + ".";
+}
 
-            if (Array.isArray(savedAnswers)) {
-                answers = savedAnswers;
-            }
-        } catch (error) {
-            answers = [];
-        }
+/* Limit the sample session based on the selected duration. */
+const questionLimit = settings.duration === "15" ? 5 :
+                      settings.duration === "60" ? 10 : 7;
 
-        function showQuestion() {
-            document.getElementById("questionNumber").textContent =
-                "QUESTION " + (currentQuestion + 1);
+questions = questions.slice(0, questionLimit);
 
-            document.getElementById("questionText").textContent =
-                questions[currentQuestion];
+const answerInput = document.getElementById("answerInput");
+const message = document.getElementById("message");
 
-            document.getElementById("questionCount").textContent =
-                "Question " + (currentQuestion + 1) + " of " + questions.length;
+function showQuestion() {
+    document.getElementById("questionNumber").textContent =
+        "QUESTION " + (currentQuestion + 1);
+    document.getElementById("questionText").textContent = questions[currentQuestion];
+    document.getElementById("questionCount").textContent =
+        "Question " + (currentQuestion + 1) + " of " + questions.length;
+    document.getElementById("progressFill").style.width =
+        (currentQuestion / questions.length * 100) + "%";
+    answerInput.value = answers[currentQuestion] || "";
+    message.textContent = "";
+    document.getElementById("nextButton").textContent =
+        currentQuestion === questions.length - 1
+            ? "Finish Practice"
+            : "Save Answer & Continue";
+}
 
-            document.getElementById("progressFill").style.width =
-                (currentQuestion / questions.length * 100) + "%";
+document.getElementById("answerForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const answer = answerInput.value.trim();
 
-            answerInput.value = answers[currentQuestion] || "";
-            message.textContent = "";
+    if (!answer) {
+        message.textContent = "Please type your answer before continuing.";
+        answerInput.focus();
+        return;
+    }
 
-            document.getElementById("nextButton").textContent =
-                currentQuestion === questions.length - 1
-                    ? "Finish Practice"
-                    : "Save Answer & Continue";
-        }
+    answers[currentQuestion] = answer;
 
-        document.getElementById("answerForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+    try {
+        sessionStorage.setItem("careerPrepAnswers", JSON.stringify(answers));
+        sessionStorage.setItem("careerPrepQuestions", JSON.stringify(questions));
+    } catch (error) {
+        message.textContent = "Unable to save your answer. Please try again.";
+        return;
+    }
 
-            const answer = answerInput.value.trim();
-
-            if (!answer) {
-                message.textContent = "Please type your answer before continuing.";
-                return;
-            }
-
-            answers[currentQuestion] = answer;
-
-            try {
-                sessionStorage.setItem("careerPrepAnswers", JSON.stringify(answers));
-            } catch (error) {
-                message.textContent = "Unable to save your answer. Please try again.";
-                return;
-            }
-
-            if (currentQuestion < questions.length - 1) {
-                currentQuestion++;
-                showQuestion();
-            } else {
-                document.getElementById("progressFill").style.width = "100%";
-                window.location.href = "results.html";
-            }
-        });
-
-        document.getElementById("exitButton").addEventListener("click", function() {
-            if (confirm("Exit this practice interview?")) {
-                window.location.href = "interview.html";
-            }
-        });
-
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
         showQuestion();
-    </script>
+    } else {
+        document.getElementById("progressFill").style.width = "100%";
+        window.location.href = "results.html";
+    }
+});
 
+document.getElementById("exitButton").addEventListener("click", function() {
+    if (confirm("Exit this practice interview?")) {
+        window.location.href = "interview.html";
+    }
+});
+
+showQuestion();
+</script>
 </body>
 </html>
