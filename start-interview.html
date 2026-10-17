@@ -3,10 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Interview | CareerPrep AI</title>
+    <title>Interview Room | CareerPrep AI</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .interview-room {
+            max-width: 850px;
+            margin: 40px auto;
+        }
+        .interview-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .progress-track {
+            height: 8px;
+            background: #e7e9f2;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 12px 0 28px;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #5145d9;
+            transition: width 0.3s ease;
+        }
+        .question-box {
+            padding: 25px;
+            background: #f7f8fc;
+            border: 1px solid #e7e9f2;
+            border-radius: 14px;
+            margin: 20px 0;
+        }
+        .question-number {
+            color: #5145d9;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .question-text {
+            font-size: 22px;
+            line-height: 1.5;
+            color: #172033;
+        }
+        .answer-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border: 1px solid #d9dce8;
+            border-radius: 10px;
+            font: inherit;
+            margin: 10px 0 18px;
+            resize: vertical;
+        }
+        .room-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .room-actions button {
+            cursor: pointer;
+            border: none;
+        }
+        .secondary-action {
+            background: #ecebff;
+            color: #5145d9;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .room-note {
+            color: #626b7d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        #roomMessage {
+            margin-top: 14px;
+            color: #b42318;
+        }
+    </style>
 </head>
 <body>
+
     <nav class="navbar">
         <a href="index.html" class="logo">CareerPrep AI</a>
         <div class="nav-links">
@@ -16,31 +95,152 @@
         </div>
     </nav>
 
-    <main class="page-container">
+    <main class="page-container interview-room">
+        <div class="interview-top">
+            <div>
+                <h1>Interview Practice Room</h1>
+                <p id="candidateWelcome" class="helper-text">
+                    Welcome to your practice interview.
+                </p>
+            </div>
+            <p id="questionCount">Question 1 of 5</p>
+        </div>
+
+        <div class="progress-track">
+            <div id="progressFill" class="progress-fill"></div>
+        </div>
+
         <section class="setup-card">
-            <h1>You're Ready to Practise!</h1>
-            <p id="candidateWelcome"></p>
-            <p>
-                Your interview room will appear here in the next development step.
-                The AI interviewer and voice interaction are not connected yet.
+            <p class="room-note">
+                Read each question carefully and answer as you would in a real interview.
             </p>
-            <a href="interview.html" class="card-button">Back to Settings</a>
+
+            <div class="question-box">
+                <p id="questionNumber" class="question-number">QUESTION 1</p>
+                <h2 id="questionText" class="question-text">
+                    Tell me about yourself.
+                </h2>
+            </div>
+
+            <form id="answerForm">
+                <label for="answerInput">Your Answer</label>
+                <textarea
+                    id="answerInput"
+                    class="answer-input"
+                    rows="7"
+                    placeholder="Type your answer here..."
+                    required
+                ></textarea>
+
+                <p id="roomMessage" aria-live="polite"></p>
+
+                <div class="room-actions">
+                    <button type="submit" class="card-button" id="nextButton">
+                        Save Answer & Continue
+                    </button>
+                    <button type="button" class="secondary-action" id="exitButton">
+                        Exit Practice
+                    </button>
+                </div>
+            </form>
+
+            <p class="room-note">
+                This version uses sample questions and typed answers.
+                AI-generated questions, voice interaction and automated evaluation
+                will be added in later steps.
+            </p>
         </section>
     </main>
 
     <script>
-        try {
-            const saved = sessionStorage.getItem("careerPrepCandidate");
-            const candidate = saved ? JSON.parse(saved) : null;
+        const questions = [
+            "Tell me about yourself, including your education, experience and key skills.",
+            "What are your strongest skills, and how have you used them?",
+            "Describe a challenging problem you faced and explain how you solved it.",
+            "Tell me about a time you worked with others to achieve a goal.",
+            "Why are you interested in this role, and what would you like to learn next?"
+        ];
 
-            document.getElementById("candidateWelcome").textContent =
-                candidate && candidate.name
-                    ? "Welcome, " + candidate.name + "! Your introduction has been saved for this browser session."
-                    : "Please complete your introduction first.";
+        let currentQuestion = 0;
+        const answers = [];
+
+        const answerInput = document.getElementById("answerInput");
+        const questionText = document.getElementById("questionText");
+        const questionNumber = document.getElementById("questionNumber");
+        const questionCount = document.getElementById("questionCount");
+        const progressFill = document.getElementById("progressFill");
+        const roomMessage = document.getElementById("roomMessage");
+        const nextButton = document.getElementById("nextButton");
+
+        try {
+            const savedCandidate = sessionStorage.getItem("careerPrepCandidate");
+            const candidate = savedCandidate ? JSON.parse(savedCandidate) : null;
+
+            if (candidate && candidate.name) {
+                document.getElementById("candidateWelcome").textContent =
+                    "Good luck, " + candidate.name + "! Your practice interview starts now.";
+            }
         } catch (error) {
-            document.getElementById("candidateWelcome").textContent =
-                "Please return to the introduction page and try again.";
+            // The interview can still be used if candidate details are unavailable.
         }
+
+        function displayQuestion() {
+            questionText.textContent = questions[currentQuestion];
+            questionNumber.textContent = "QUESTION " + (currentQuestion + 1);
+            questionCount.textContent =
+                "Question " + (currentQuestion + 1) + " of " + questions.length;
+            progressFill.style.width =
+                (currentQuestion / questions.length * 100) + "%";
+            answerInput.value = answers[currentQuestion] || "";
+            roomMessage.textContent = "";
+            nextButton.textContent =
+                currentQuestion === questions.length - 1
+                    ? "Finish Practice"
+                    : "Save Answer & Continue";
+        }
+
+        document.getElementById("answerForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const answer = answerInput.value.trim();
+
+            if (!answer) {
+                roomMessage.textContent = "Please enter your answer before continuing.";
+                answerInput.focus();
+                return;
+            }
+
+            answers[currentQuestion] = answer;
+
+            try {
+                sessionStorage.setItem("careerPrepAnswers", JSON.stringify(answers));
+            } catch (error) {
+                roomMessage.textContent =
+                    "Your browser could not save the answer. Please try again.";
+                return;
+            }
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            } else {
+                progressFill.style.width = "100%";
+                window.location.href = "results.html";
+            }
+        });
+
+        document.getElementById("exitButton").addEventListener("click", function() {
+            const shouldExit = confirm(
+                "Exit this practice interview? Your answers saved in this session may still be available."
+            );
+
+            if (shouldExit) {
+                window.location.href = "interview.html";
+            }
+        });
+
+        displayQuestion();
     </script>
+
 </body>
 </html>
