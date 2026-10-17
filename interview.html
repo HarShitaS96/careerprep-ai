@@ -2,13 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interview Preparation | CareerPrep AI</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .setup-card {
+            max-width: 750px;
+            margin: 35px auto;
+        }
+
+        .setup-card label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: 600;
+        }
+
+        .setup-card select {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d9dce8;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        .setup-card button {
+            margin-top: 22px;
+            cursor: pointer;
+        }
+
+        .setup-card button:disabled {
+            background: #d7d9e5;
+            color: #73798a;
+            cursor: not-allowed;
+        }
+
+        .form-divider {
+            height: 1px;
+            background: #e8eaf2;
+            margin: 30px 0;
+        }
+
+        .review-panel {
+            margin-top: 30px;
+            padding: 24px;
+            background: #f7f8fc;
+            border: 1px solid #e7e9f2;
+            border-radius: 12px;
+        }
+
+        .review-panel p {
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .helper-text {
+            color: #626b7d;
+            line-height: 1.6;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+    </style>
 </head>
+
 <body>
+
 <nav class="navbar">
     <a href="index.html" class="logo">CareerPrep AI</a>
+
     <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="interview.html" class="active">Interview Preparation</a>
@@ -17,166 +82,281 @@
 </nav>
 
 <main class="page-container">
-<section class="setup-card">
-    <h1>Set Up Your Interview</h1>
-    <p class="helper-text">Choose your preferences to personalize your practice.</p>
 
-    <form id="settingsForm">
-        <label for="stream">Career Stream</label>
-        <select id="stream" required>
-            <option value="">Select your stream</option>
-            <option>IT & Technology</option>
-            <option>Engineering</option>
-            <option>BPO & Customer Operations</option>
-            <option>Business & Corporate</option>
-        </select>
+    <section class="setup-card">
+        <h1>Prepare for Your Interview</h1>
 
-        <label for="role">Target Role</label>
-        <select id="role" required disabled>
-            <option value="">Select your role</option>
-        </select>
+        <p class="helper-text">
+            Customize your practice session based on your career goals.
+        </p>
 
-        <label for="experience">Experience Level</label>
-        <select id="experience" required disabled>
-            <option value="">Select experience</option>
-            <option>Fresher</option>
-            <option>0–2 years</option>
-            <option>3–5 years</option>
-            <option>6–10 years</option>
-            <option>10+ years</option>
-        </select>
+        <form id="settingsForm">
 
-        <label for="interviewType">Interview Type</label>
-        <select id="interviewType" required>
-            <option value="">Select interview type</option>
-            <option>Technical</option>
-            <option>HR / Behavioral</option>
-            <option>Managerial</option>
-            <option>Mixed</option>
-        </select>
+            <label for="stream">Career Stream</label>
+            <select id="stream" required>
+                <option value="">Select your stream</option>
+                <option value="IT & Technology">IT & Technology</option>
+                <option value="Engineering">Engineering</option>
+                <option value="BPO & Customer Operations">BPO & Customer Operations</option>
+                <option value="Business & Corporate">Business & Corporate</option>
+            </select>
 
-        <label for="difficulty">Difficulty</label>
-        <select id="difficulty" required>
-            <option value="">Select difficulty</option>
-            <option>Basic</option>
-            <option>Medium</option>
-            <option>Hard</option>
-            <option>As per Experience</option>
-        </select>
+            <label for="role">Target Role</label>
+            <select id="role" required disabled>
+                <option value="">Select your role</option>
+            </select>
 
-        <label for="duration">Duration</label>
-        <select id="duration" required>
-            <option value="">Select duration</option>
-            <option value="15">15 minutes</option>
-            <option value="30">30 minutes</option>
-            <option value="60">60 minutes</option>
-        </select>
+            <label for="experience">Experience Level</label>
+            <select id="experience" required disabled>
+                <option value="">Select experience</option>
+                <option value="Fresher">Fresher</option>
+                <option value="0–2 years">0–2 years</option>
+                <option value="3–5 years">3–5 years</option>
+                <option value="6–10 years">6–10 years</option>
+                <option value="10+ years">10+ years</option>
+            </select>
 
-        <label for="camera">Camera Preference</label>
-        <select id="camera" required>
-            <option value="">Select preference</option>
-            <option>Camera ON</option>
-            <option>Camera OFF (voice only)</option>
-        </select>
+            <div class="form-divider"></div>
 
-        <button type="submit" class="card-button">Continue</button>
-        <p id="settingsMessage" class="helper-text" aria-live="polite"></p>
-    </form>
-</section>
+            <label for="interviewType">Interview Type</label>
+            <select id="interviewType" required>
+                <option value="">Select interview type</option>
+                <option value="Technical">Technical</option>
+                <option value="HR / Behavioral">HR / Behavioral</option>
+                <option value="Managerial">Managerial</option>
+                <option value="Mixed">Mixed</option>
+            </select>
+
+            <label for="difficulty">Difficulty Level</label>
+            <select id="difficulty" required>
+                <option value="">Select difficulty</option>
+                <option value="Basic">Basic</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+                <option value="As per Experience">As per Experience</option>
+            </select>
+
+            <label for="duration">Interview Duration</label>
+            <select id="duration" required>
+                <option value="">Select duration</option>
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60">60 minutes</option>
+            </select>
+
+            <label for="camera">Camera Preference</label>
+            <select id="camera" required>
+                <option value="">Select camera preference</option>
+                <option value="Camera ON">Camera ON</option>
+                <option value="Camera OFF (voice only)">Camera OFF (voice only)</option>
+            </select>
+
+            <p id="settingsMessage" class="helper-text" aria-live="polite"></p>
+
+            <button type="submit" id="reviewButton" class="card-button" disabled>
+                Review Interview Settings
+            </button>
+
+        </form>
+
+        <section id="reviewPanel" class="review-panel" hidden>
+            <h2>Confirm Your Interview Settings</h2>
+
+            <p id="reviewSummary"></p>
+
+            <button type="button" id="editButton" class="secondary-action">
+                Edit Selections
+            </button>
+
+            <button type="button" id="confirmButton" class="card-button">
+                Confirm & Continue
+            </button>
+
+            <p id="confirmMessage" class="helper-text" aria-live="polite"></p>
+        </section>
+
+    </section>
+
 </main>
 
 <script>
-const roleOptions = {
-    "IT & Technology": [
-        "SAP HANA Consultant",
-        "Software Developer",
-        "Data Analyst",
-        "Data Engineer",
-        "Software Tester / QA Engineer",
-        "Business Analyst",
-        "DevOps Engineer",
-        "Project Manager"
-    ],
-    "Engineering": [
-        "Mechanical Engineer",
-        "Civil Engineer",
-        "Electrical Engineer",
-        "Electronics Engineer",
-        "Quality Engineer",
-        "Project Engineer"
-    ],
-    "BPO & Customer Operations": [
-        "Customer Support Executive",
-        "Technical Support Executive",
-        "Team Leader",
-        "Quality Analyst",
-        "Operations Manager"
-    ],
-    "Business & Corporate": [
-        "Business Analyst",
-        "Project Manager",
-        "HR Executive",
-        "Financial Analyst",
-        "Marketing Executive",
-        "Operations Manager"
-    ]
-};
+    const roleOptions = {
+        "IT & Technology": [
+            "SAP HANA Consultant",
+            "Software Developer",
+            "Data Analyst",
+            "Data Engineer",
+            "Software Tester / QA Engineer",
+            "Business Analyst",
+            "DevOps Engineer",
+            "Project Manager"
+        ],
 
-const stream = document.getElementById("stream");
-const role = document.getElementById("role");
-const experience = document.getElementById("experience");
+        "Engineering": [
+            "Mechanical Engineer",
+            "Civil Engineer",
+            "Electrical Engineer",
+            "Electronics Engineer",
+            "Quality Engineer",
+            "Project Engineer"
+        ],
 
-function resetSelect(select, placeholder) {
-    select.innerHTML = "";
-    const option = document.createElement("option");
-    option.value = "";
-    option.textContent = placeholder;
-    select.appendChild(option);
-}
+        "BPO & Customer Operations": [
+            "Customer Support Executive",
+            "Technical Support Executive",
+            "Team Leader",
+            "Quality Analyst",
+            "Operations Manager"
+        ],
 
-stream.addEventListener("change", function() {
-    resetSelect(role, "Select your role");
-    resetSelect(experience, "Select experience");
-    role.disabled = true;
-    experience.disabled = true;
-
-    if (stream.value) {
-        roleOptions[stream.value].forEach(function(name) {
-            const option = document.createElement("option");
-            option.value = name;
-            option.textContent = name;
-            role.appendChild(option);
-        });
-        role.disabled = false;
-    }
-});
-
-role.addEventListener("change", function() {
-    resetSelect(experience, "Select experience");
-    experience.disabled = !role.value;
-});
-
-document.getElementById("settingsForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const settings = {
-        stream: stream.value,
-        role: role.value,
-        experience: experience.value,
-        interviewType: document.getElementById("interviewType").value,
-        difficulty: document.getElementById("difficulty").value,
-        duration: document.getElementById("duration").value,
-        camera: document.getElementById("camera").value
+        "Business & Corporate": [
+            "Business Analyst",
+            "Project Manager",
+            "HR Executive",
+            "Financial Analyst",
+            "Marketing Executive",
+            "Operations Manager"
+        ]
     };
 
-    try {
-        sessionStorage.setItem("careerPrepSettings", JSON.stringify(settings));
-        window.location.href = "intro.html";
-    } catch (error) {
-        document.getElementById("settingsMessage").textContent =
-            "Unable to save your settings. Please check your browser and try again.";
+    const form = document.getElementById("settingsForm");
+    const stream = document.getElementById("stream");
+    const role = document.getElementById("role");
+    const experience = document.getElementById("experience");
+    const reviewButton = document.getElementById("reviewButton");
+    const reviewPanel = document.getElementById("reviewPanel");
+    const settingsMessage = document.getElementById("settingsMessage");
+
+    function resetSelect(select, placeholder) {
+        select.innerHTML = "";
+
+        const option = document.createElement("option");
+        option.value = "";
+        option.textContent = placeholder;
+
+        select.appendChild(option);
     }
-});
+
+    function hideReview() {
+        reviewPanel.hidden = true;
+        document.getElementById("confirmMessage").textContent = "";
+    }
+
+    function validateSettings() {
+        reviewButton.disabled = !form.checkValidity();
+    }
+
+    stream.addEventListener("change", function() {
+        resetSelect(role, "Select your role");
+        resetSelect(experience, "Select experience");
+
+        role.disabled = true;
+        experience.disabled = true;
+
+        if (stream.value && roleOptions[stream.value]) {
+            roleOptions[stream.value].forEach(function(roleName) {
+                const option = document.createElement("option");
+                option.value = roleName;
+                option.textContent = roleName;
+                role.appendChild(option);
+            });
+
+            role.disabled = false;
+        }
+
+        hideReview();
+        validateSettings();
+    });
+
+    role.addEventListener("change", function() {
+        resetSelect(experience, "Select experience");
+        experience.disabled = !role.value;
+
+        hideReview();
+        validateSettings();
+    });
+
+    form.querySelectorAll("select").forEach(function(select) {
+        select.addEventListener("change", function() {
+            hideReview();
+            settingsMessage.textContent = "";
+            validateSettings();
+        });
+    });
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const settings = {
+            stream: stream.value,
+            role: role.value,
+            experience: experience.value,
+            interviewType: document.getElementById("interviewType").value,
+            difficulty: document.getElementById("difficulty").value,
+            duration: document.getElementById("duration").value,
+            camera: document.getElementById("camera").value
+        };
+
+        document.getElementById("reviewSummary").textContent =
+            "Career Stream: " + settings.stream + "\n" +
+            "Target Role: " + settings.role + "\n" +
+            "Experience: " + settings.experience + "\n" +
+            "Interview Type: " + settings.interviewType + "\n" +
+            "Difficulty: " + settings.difficulty + "\n" +
+            "Duration: " + settings.duration + " minutes\n" +
+            "Camera: " + settings.camera;
+
+        reviewPanel.hidden = false;
+        settingsMessage.textContent = "";
+
+        reviewPanel.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    });
+
+    document.getElementById("editButton").addEventListener("click", function() {
+        hideReview();
+        document.getElementById("settingsForm").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    });
+
+    document.getElementById("confirmButton").addEventListener("click", function() {
+        const settings = {
+            stream: stream.value,
+            role: role.value,
+            experience: experience.value,
+            interviewType: document.getElementById("interviewType").value,
+            difficulty: document.getElementById("difficulty").value,
+            duration: document.getElementById("duration").value,
+            camera: document.getElementById("camera").value
+        };
+
+        try {
+            sessionStorage.setItem("careerPrepSettings", JSON.stringify(settings));
+
+            // Start a fresh practice session.
+            sessionStorage.removeItem("careerPrepAnswers");
+            sessionStorage.removeItem("careerPrepQuestions");
+
+            // Open the candidate introduction page.
+            window.location.href = "intro.html";
+
+        } catch (error) {
+            document.getElementById("confirmMessage").textContent =
+                "Your settings could not be saved. Please try again.";
+        }
+    });
+
+    validateSettings();
 </script>
+
 </body>
 </html>
