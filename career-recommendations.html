@@ -1,0 +1,505 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Recommendations | CareerPrep AI</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .recommendations-container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .intro-card {
+            padding: 24px;
+            background: #f7f8fc;
+            border: 1px solid #e7e9f2;
+            border-radius: 14px;
+            margin: 24px 0;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .career-card {
+            display: flex;
+            flex-direction: column;
+            padding: 22px;
+            border: 1px solid #e7e9f2;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .career-card h3 {
+            margin-top: 0;
+        }
+
+        .career-card p {
+            line-height: 1.7;
+        }
+
+        .career-card .career-reason {
+            color: #626b7d;
+            font-size: 14px;
+        }
+
+        .career-card .card-button {
+            align-self: flex-start;
+            margin-top: auto;
+            text-decoration: none;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 0 12px;
+            border-radius: 20px;
+            background: #edf0fa;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .page-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .page-actions a {
+            text-decoration: none;
+        }
+
+        .helper-text {
+            color: #626b7d;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">CareerPrep <span>AI</span></a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="interview.html">Interview Preparation</a>
+            <a href="explore.html" class="active">Explore Career</a>
+        </div>
+    </nav>
+
+    <main class="page-container recommendations-container">
+
+        <span class="eyebrow">YOUR NEXT OPPORTUNITY</span>
+        <h1>Explore Your Career Options</h1>
+
+        <p id="welcomeMessage" class="helper-text">
+            Here are some career paths to explore.
+        </p>
+
+        <section class="intro-card">
+            <h2>Your Profile Summary</h2>
+            <p id="profileSummary" class="helper-text"></p>
+            <p class="helper-text">
+                These suggestions are starting points, not a guarantee of suitability.
+                Review each role's responsibilities and requirements before deciding.
+            </p>
+        </section>
+
+        <h2>Recommended Career Paths</h2>
+        <div id="careerGrid" class="career-grid"></div>
+
+        <p id="emptyMessage" class="helper-text" hidden></p>
+
+        <div class="page-actions">
+            <a href="explore.html" class="secondary-action">← Back to Explore Career</a>
+            <a href="interview.html" class="card-button">Prepare for an Interview →</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 CareerPrep AI · Your journey, your future.</p>
+    </footer>
+
+    <script>
+        const careerCatalog = {
+            "IT & Technology": [
+                {
+                    title: "Software Developer",
+                    description: "Build and maintain applications, features and software systems.",
+                    skills: "Programming, debugging, problem-solving and version control.",
+                    reason: "A possible path if you enjoy coding and building digital products."
+                },
+                {
+                    title: "Data Analyst",
+                    description: "Turn data into reports and insights that support decisions.",
+                    skills: "SQL, spreadsheets, data visualization and analytical thinking.",
+                    reason: "A possible path if you enjoy finding patterns and working with data."
+                },
+                {
+                    title: "Data Engineer",
+                    description: "Build data pipelines and systems that prepare data for analysis.",
+                    skills: "SQL, Python, data modeling and data processing.",
+                    reason: "A possible path if you enjoy databases and data infrastructure."
+                },
+                {
+                    title: "Software Tester / QA Engineer",
+                    description: "Test applications, identify defects and help improve product quality.",
+                    skills: "Test design, attention to detail, debugging and documentation.",
+                    reason: "A possible path if you enjoy investigating problems and checking details."
+                },
+                {
+                    title: "Business Analyst",
+                    description: "Understand business needs and translate them into clear requirements.",
+                    skills: "Communication, analysis, documentation and stakeholder management.",
+                    reason: "A possible path if you enjoy connecting people, processes and technology."
+                },
+                {
+                    title: "Cybersecurity Analyst",
+                    description: "Help identify security risks and protect systems and information.",
+                    skills: "Networking fundamentals, security concepts and analytical thinking.",
+                    reason: "A possible path if you enjoy investigating risks and technical problems."
+                }
+            ],
+
+            "Engineering": [
+                {
+                    title: "Mechanical Engineer",
+                    description: "Design, analyze or improve mechanical systems and equipment.",
+                    skills: "Engineering fundamentals, CAD, analysis and problem-solving.",
+                    reason: "A possible path if you enjoy machines, design and physical systems."
+                },
+                {
+                    title: "Civil Engineer",
+                    description: "Contribute to the planning, design and delivery of infrastructure projects.",
+                    skills: "Construction methods, drawings, planning and site coordination.",
+                    reason: "A possible path if you enjoy infrastructure and project execution."
+                },
+                {
+                    title: "Electrical Engineer",
+                    description: "Work with electrical systems, equipment and power-related projects.",
+                    skills: "Electrical fundamentals, testing, safety and troubleshooting.",
+                    reason: "A possible path if you enjoy electrical systems and technical analysis."
+                },
+                {
+                    title: "Electronics Engineer",
+                    description: "Design, test or maintain electronic devices and systems.",
+                    skills: "Electronics fundamentals, circuit analysis and testing.",
+                    reason: "A possible path if you enjoy circuits, devices and embedded systems."
+                },
+                {
+                    title: "Quality Engineer",
+                    description: "Improve product and process quality through testing and analysis.",
+                    skills: "Quality methods, root-cause analysis and documentation.",
+                    reason: "A possible path if you enjoy improving processes and solving defects."
+                },
+                {
+                    title: "Project Engineer",
+                    description: "Coordinate technical activities, schedules and project delivery.",
+                    skills: "Planning, technical knowledge, coordination and communication.",
+                    reason: "A possible path if you enjoy both technical work and coordination."
+                }
+            ],
+
+            "BPO & Customer Operations": [
+                {
+                    title: "Customer Support Executive",
+                    description: "Help customers resolve questions and service issues.",
+                    skills: "Communication, listening, product knowledge and problem-solving.",
+                    reason: "A possible path if you enjoy helping people and resolving concerns."
+                },
+                {
+                    title: "Technical Support Executive",
+                    description: "Troubleshoot technical issues and guide users through solutions.",
+                    skills: "Troubleshooting, communication and technical fundamentals.",
+                    reason: "A possible path if you enjoy technology and customer interaction."
+                },
+                {
+                    title: "Quality Analyst",
+                    description: "Review service interactions and identify quality improvements.",
+                    skills: "Attention to detail, evaluation, reporting and communication.",
+                    reason: "A possible path if you enjoy reviewing work against clear standards."
+                },
+                {
+                    title: "Team Leader",
+                    description: "Support a team, monitor performance and coordinate daily operations.",
+                    skills: "Coaching, communication, planning and problem-solving.",
+                    reason: "A possible path if you enjoy helping teams perform effectively."
+                },
+                {
+                    title: "Operations Analyst",
+                    description: "Analyze operational data and help improve service processes.",
+                    skills: "Reporting, spreadsheets, process analysis and communication.",
+                    reason: "A possible path if you enjoy improving workflows using data."
+                }
+            ],
+
+            "Business & Corporate": [
+                {
+                    title: "Business Analyst",
+                    description: "Gather requirements and help teams solve business problems.",
+                    skills: "Analysis, documentation, communication and stakeholder management.",
+                    reason: "A possible path if you enjoy understanding needs and improving processes."
+                },
+                {
+                    title: "Project Coordinator",
+                    description: "Track schedules, actions, documentation and team coordination.",
+                    skills: "Organization, communication, planning and follow-through.",
+                    reason: "A possible path if you enjoy keeping work organized and moving."
+                },
+                {
+                    title: "Human Resources Executive",
+                    description: "Support recruitment, employee processes and workplace operations.",
+                    skills: "Communication, organization, confidentiality and coordination.",
+                    reason: "A possible path if you enjoy people-focused work."
+                },
+                {
+                    title: "Marketing Executive",
+                    description: "Help plan and deliver campaigns, content and marketing activities.",
+                    skills: "Communication, research, creativity and analytical thinking.",
+                    reason: "A possible path if you enjoy understanding audiences and communicating ideas."
+                },
+                {
+                    title: "Operations Analyst",
+                    description: "Study business processes and identify opportunities for improvement.",
+                    skills: "Analysis, reporting, process mapping and problem-solving.",
+                    reason: "A possible path if you enjoy making business operations more effective."
+                }
+            ],
+
+            "Finance & Accounting": [
+                {
+                    title: "Financial Analyst",
+                    description: "Analyze financial information to support business planning and decisions.",
+                    skills: "Excel, financial analysis, reporting and attention to detail.",
+                    reason: "A possible path if you enjoy numbers and business performance."
+                },
+                {
+                    title: "Accountant",
+                    description: "Maintain financial records and support reporting and compliance.",
+                    skills: "Accounting principles, spreadsheets and accuracy.",
+                    reason: "A possible path if you enjoy structured work with financial records."
+                },
+                {
+                    title: "Accounts Payable / Receivable Specialist",
+                    description: "Manage payment records, invoices and outstanding balances.",
+                    skills: "Reconciliation, accounting basics and organization.",
+                    reason: "A possible path if you enjoy detailed financial operations."
+                },
+                {
+                    title: "Business Operations Analyst",
+                    description: "Use reports and financial or operational data to improve processes.",
+                    skills: "Excel, reporting, data analysis and communication.",
+                    reason: "A possible path if you enjoy combining business and analytical work."
+                }
+            ],
+
+            "Healthcare": [
+                {
+                    title: "Healthcare Administrator",
+                    description: "Support the planning and daily operations of healthcare services.",
+                    skills: "Organization, communication, scheduling and process management.",
+                    reason: "A possible path if you are interested in healthcare operations."
+                },
+                {
+                    title: "Health Information Specialist",
+                    description: "Help maintain and organize healthcare records and information.",
+                    skills: "Accuracy, record management, confidentiality and digital tools.",
+                    reason: "A possible path if you enjoy structured information-management work."
+                }
+            ],
+
+            "Design & Creative": [
+                {
+                    title: "Graphic Designer",
+                    description: "Create visual assets for brands, products and communications.",
+                    skills: "Visual design, typography, layout and design software.",
+                    reason: "A possible path if you enjoy visual communication and creativity."
+                },
+                {
+                    title: "UI/UX Designer",
+                    description: "Design digital experiences based on user needs and usability.",
+                    skills: "User research, wireframing, prototyping and visual design.",
+                    reason: "A possible path if you enjoy combining design with problem-solving."
+                },
+                {
+                    title: "Content Writer",
+                    description: "Create clear written content for websites, products and audiences.",
+                    skills: "Writing, research, editing and audience awareness.",
+                    reason: "A possible path if you enjoy explaining ideas through writing."
+                }
+            ],
+
+            "Not sure yet": [
+                {
+                    title: "Data Analyst",
+                    description: "Explore how data can help people make informed decisions.",
+                    skills: "SQL, spreadsheets, visualization and analytical thinking.",
+                    reason: "A possible path to explore if you like patterns, numbers or problem-solving."
+                },
+                {
+                    title: "Business Analyst",
+                    description: "Explore business problems and help teams define solutions.",
+                    skills: "Communication, analysis, documentation and critical thinking.",
+                    reason: "A possible path if you like understanding how organizations work."
+                },
+                {
+                    title: "Project Coordinator",
+                    description: "Help teams plan tasks, track progress and coordinate activities.",
+                    skills: "Organization, communication, planning and teamwork.",
+                    reason: "A possible path if you enjoy organizing activities and working with people."
+                },
+                {
+                    title: "Customer Support Executive",
+                    description: "Help people resolve questions and find useful solutions.",
+                    skills: "Communication, listening, patience and problem-solving.",
+                    reason: "A possible path if you enjoy helping people."
+                }
+            ]
+        };
+
+        const grid = document.getElementById("careerGrid");
+        const emptyMessage = document.getElementById("emptyMessage");
+
+        function addTextElement(parent, tag, text, className) {
+            const element = document.createElement(tag);
+            element.textContent = text;
+
+            if (className) {
+                element.className = className;
+            }
+
+            parent.appendChild(element);
+            return element;
+        }
+
+        function createCareerCard(career, profile) {
+            const card = document.createElement("article");
+            card.className = "career-card";
+
+            addTextElement(card, "span", "CAREER OPTION", "tag");
+            addTextElement(card, "h3", career.title);
+            addTextElement(card, "p", career.description);
+            addTextElement(card, "p", "Skills to develop: " + career.skills);
+            addTextElement(card, "p", career.reason, "career-reason");
+
+            const button = document.createElement("a");
+            button.className = "card-button";
+            button.href = "interview.html";
+            button.textContent = "Practise for Interviews →";
+
+            button.addEventListener("click", function() {
+                try {
+                    sessionStorage.setItem(
+                        "careerPrepSelectedRole",
+                        JSON.stringify({
+                            title: career.title,
+                            stream: profile.careerStream
+                        })
+                    );
+                } catch (error) {
+                    // Interview preparation remains accessible if storage is unavailable.
+                }
+            });
+
+            card.appendChild(button);
+            return card;
+        }
+
+        try {
+            const savedProfile = sessionStorage.getItem("careerPrepCareerProfile");
+            const profile = savedProfile ? JSON.parse(savedProfile) : null;
+
+            if (!profile) {
+                document.getElementById("welcomeMessage").textContent =
+                    "Build your career profile first to receive career suggestions.";
+
+                document.getElementById("profileSummary").textContent =
+                    "No career profile was found for this session.";
+
+                emptyMessage.hidden = false;
+                emptyMessage.textContent =
+                    "Please return to Explore Career and complete your profile.";
+
+            } else {
+                document.getElementById("welcomeMessage").textContent =
+                    "Here are some career paths to begin exploring.";
+
+                const summaryParts = [];
+
+                if (profile.careerStream) {
+                    summaryParts.push("Career area: " + profile.careerStream);
+                }
+
+                if (profile.education) {
+                    summaryParts.push("Education: " + profile.education);
+                }
+
+                if (profile.fieldOfStudy) {
+                    summaryParts.push("Field of study: " + profile.fieldOfStudy);
+                }
+
+                if (profile.experience) {
+                    summaryParts.push("Experience: " + profile.experience);
+                }
+
+                if (profile.skills) {
+                    summaryParts.push("Skills: " + profile.skills);
+                }
+
+                if (profile.interests) {
+                    summaryParts.push("Interests: " + profile.interests);
+                }
+
+                if (profile.workPreference) {
+                    summaryParts.push("Work preference: " + profile.workPreference);
+                }
+
+                if (profile.method === "resume" && profile.resumeFileName) {
+                    summaryParts.push("Selected resume: " + profile.resumeFileName);
+                }
+
+                document.getElementById("profileSummary").textContent =
+                    summaryParts.length
+                        ? summaryParts.join(" · ")
+                        : "You have not added many profile details yet. You can still explore these options.";
+
+                const careers = careerCatalog[profile.careerStream] ||
+                    careerCatalog["Not sure yet"];
+
+                careers.forEach(function(career) {
+                    grid.appendChild(createCareerCard(career, profile));
+                });
+
+                if (profile.method === "resume") {
+                    const note = document.createElement("p");
+                    note.className = "helper-text";
+                    note.textContent =
+                        "Note: your resume file has not been analyzed. These suggestions are based on the career area you selected.";
+                    document.querySelector(".intro-card").appendChild(note);
+                }
+            }
+        } catch (error) {
+            document.getElementById("welcomeMessage").textContent =
+                "We could not load your career profile.";
+
+            document.getElementById("profileSummary").textContent =
+                "Please return to the previous page and submit your profile again.";
+
+            emptyMessage.hidden = false;
+            emptyMessage.textContent = "No recommendations could be displayed.";
+        }
+    </script>
+
+</body>
+</html>
+```
