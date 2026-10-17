@@ -172,8 +172,8 @@ body {
 }
 
 .card-button.secondary {
-    background: #eeecff;
-    color: #5145d9;
+    background: #5145d9;
+    color: white;
 }
 
 .card-button.secondary:hover {
