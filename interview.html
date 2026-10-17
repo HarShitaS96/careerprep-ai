@@ -1,278 +1,182 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Interview Preparation | CareerPrep AI</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<nav class="navbar">
+    <a href="index.html" class="logo">CareerPrep AI</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="interview.html" class="active">Interview Preparation</a>
+        <a href="explore.html">Explore Career</a>
+    </div>
+</nav>
 
-    <nav class="navbar">
-        <div class="logo">CareerPrep <span>AI</span></div>
-        <div class="nav-links">
-            <a href="./index.html">Home</a>
-            <a href="./interview.html" class="active">Interview Preparation</a>
-            <a href="./explore.html">Explore Career</a>
-        </div>
-        <a href="./interview.html" class="login-link">Get Started</a>
-    </nav>
+<main class="page-container">
+<section class="setup-card">
+    <h1>Set Up Your Interview</h1>
+    <p class="helper-text">Choose your preferences to personalize your practice.</p>
 
-    <main class="hero">
-        <span class="eyebrow">YOUR PRACTICE STARTS HERE</span>
-        <h1>Prepare for Your <span>Next Interview</span></h1>
-        <p>Select your role and customize your mock interview.</p>
+    <form id="settingsForm">
+        <label for="stream">Career Stream</label>
+        <select id="stream" required>
+            <option value="">Select your stream</option>
+            <option>IT & Technology</option>
+            <option>Engineering</option>
+            <option>BPO & Customer Operations</option>
+            <option>Business & Corporate</option>
+        </select>
 
-        <section class="setup-card">
+        <label for="role">Target Role</label>
+        <select id="role" required disabled>
+            <option value="">Select your role</option>
+        </select>
 
-            <h2 class="form-heading">About You</h2>
+        <label for="experience">Experience Level</label>
+        <select id="experience" required disabled>
+            <option value="">Select experience</option>
+            <option>Fresher</option>
+            <option>0–2 years</option>
+            <option>3–5 years</option>
+            <option>6–10 years</option>
+            <option>10+ years</option>
+        </select>
 
-            <label for="stream">1. Career stream</label>
-            <select id="stream">
-                <option value="">Choose a stream</option>
-                <option value="it">IT &amp; Technology</option>
-                <option value="engineering">Engineering</option>
-                <option value="bpo">BPO &amp; Customer Operations</option>
-                <option value="business">Business &amp; Corporate</option>
-            </select>
+        <label for="interviewType">Interview Type</label>
+        <select id="interviewType" required>
+            <option value="">Select interview type</option>
+            <option>Technical</option>
+            <option>HR / Behavioral</option>
+            <option>Managerial</option>
+            <option>Mixed</option>
+        </select>
 
-            <label for="role">2. Target role</label>
-            <select id="role" disabled>
-                <option value="">Choose a stream first</option>
-            </select>
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty" required>
+            <option value="">Select difficulty</option>
+            <option>Basic</option>
+            <option>Medium</option>
+            <option>Hard</option>
+            <option>As per Experience</option>
+        </select>
 
-            <label for="experience">3. Experience level</label>
-            <select id="experience" disabled>
-                <option value="">Choose a role first</option>
-            </select>
+        <label for="duration">Duration</label>
+        <select id="duration" required>
+            <option value="">Select duration</option>
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">60 minutes</option>
+        </select>
 
-            <div class="form-divider"></div>
-            <h2 class="form-heading">Interview Settings</h2>
+        <label for="camera">Camera Preference</label>
+        <select id="camera" required>
+            <option value="">Select preference</option>
+            <option>Camera ON</option>
+            <option>Camera OFF (voice only)</option>
+        </select>
 
-            <label for="interviewType">4. Interview type</label>
-            <select id="interviewType">
-                <option value="">Choose interview type</option>
-                <option>Technical</option>
-                <option>HR / Behavioral</option>
-                <option>Managerial</option>
-                <option>Mixed</option>
-            </select>
+        <button type="submit" class="card-button">Continue</button>
+        <p id="settingsMessage" class="helper-text" aria-live="polite"></p>
+    </form>
+</section>
+</main>
 
-            <label for="difficulty">5. Difficulty level</label>
-            <select id="difficulty">
-                <option value="">Choose difficulty</option>
-                <option>Basic</option>
-                <option>Medium</option>
-                <option>Hard</option>
-                <option>As per Experience</option>
-            </select>
+<script>
+const roleOptions = {
+    "IT & Technology": [
+        "SAP HANA Consultant",
+        "Software Developer",
+        "Data Analyst",
+        "Data Engineer",
+        "Software Tester / QA Engineer",
+        "Business Analyst",
+        "DevOps Engineer",
+        "Project Manager"
+    ],
+    "Engineering": [
+        "Mechanical Engineer",
+        "Civil Engineer",
+        "Electrical Engineer",
+        "Electronics Engineer",
+        "Quality Engineer",
+        "Project Engineer"
+    ],
+    "BPO & Customer Operations": [
+        "Customer Support Executive",
+        "Technical Support Executive",
+        "Team Leader",
+        "Quality Analyst",
+        "Operations Manager"
+    ],
+    "Business & Corporate": [
+        "Business Analyst",
+        "Project Manager",
+        "HR Executive",
+        "Financial Analyst",
+        "Marketing Executive",
+        "Operations Manager"
+    ]
+};
 
-            <label for="duration">6. Interview duration</label>
-            <select id="duration">
-                <option value="">Choose duration</option>
-                <option value="15">15 minutes</option>
-                <option value="30">30 minutes</option>
-                <option value="60">60 minutes</option>
-            </select>
+const stream = document.getElementById("stream");
+const role = document.getElementById("role");
+const experience = document.getElementById("experience");
 
-            <label for="camera">7. Camera preference</label>
-            <select id="camera">
-                <option value="">Choose camera preference</option>
-                <option value="on">Camera ON</option>
-                <option value="off">Camera OFF (voice only)</option>
-            </select>
+function resetSelect(select, placeholder) {
+    select.innerHTML = "";
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = placeholder;
+    select.appendChild(option);
+}
 
-            <p id="message" class="helper-text" aria-live="polite">
-                Complete the selections to prepare your interview.
-            </p>
+stream.addEventListener("change", function() {
+    resetSelect(role, "Select your role");
+    resetSelect(experience, "Select experience");
+    role.disabled = true;
+    experience.disabled = true;
 
-            <button type="button" id="reviewButton" class="card-button" disabled>
-                Review Interview Settings →
-            </button>
-
-            <div id="review" class="review-panel" hidden>
-                <h2>Your Interview Summary</h2>
-                <p id="summary" class="helper-text"></p>
-                <button type="button" id="editButton" class="card-button secondary">
-                    Edit Selections
-                </button>
-                <button type="button" id="startButton" class="card-button">
-                    Confirm &amp; Continue →
-                </button>
-                <p id="startMessage" class="helper-text" aria-live="polite"></p>
-            </div>
-
-        </section>
-
-        <p style="margin-top: 30px;">
-            <a href="./index.html" class="card-button secondary">← Back to Home</a>
-        </p>
-    </main>
-
-    <footer>
-        <p>© 2026 CareerPrep AI · Your journey, your future.</p>
-    </footer>
-
-    <script>
-        const roles = {
-            it: [
-                "Software Developer",
-                "Software Tester / QA",
-                "SAP Consultant",
-                "Data Analyst",
-                "Data Engineer",
-                "Business Analyst",
-                "Project Manager",
-                "DevOps / Cloud Engineer",
-                "Technical Support"
-            ],
-            engineering: [
-                "Civil Engineer",
-                "Mechanical Engineer",
-                "Electrical Engineer",
-                "Electronics & Communication Engineer",
-                "Chemical Engineer",
-                "Construction Manager"
-            ],
-            bpo: [
-                "Customer Service Representative",
-                "Voice Process Executive",
-                "Non-Voice Process Executive",
-                "Technical Support Executive",
-                "Back Office Executive",
-                "Team Leader"
-            ],
-            business: [
-                "HR / Recruiter",
-                "Finance / Accounting",
-                "Sales Executive",
-                "Marketing Executive",
-                "Operations Manager",
-                "Supply Chain Analyst",
-                "Banking / Insurance Professional"
-            ]
-        };
-
-        const experienceLevels = [
-            "Fresher", "0–2 years", "3–5 years", "6–10 years", "10+ years"
-        ];
-
-        const stream = document.getElementById("stream");
-        const role = document.getElementById("role");
-        const experience = document.getElementById("experience");
-        const message = document.getElementById("message");
-        const reviewButton = document.getElementById("reviewButton");
-        const review = document.getElementById("review");
-        const startMessage = document.getElementById("startMessage");
-
-        function resetSelect(select, placeholder) {
-            select.innerHTML = "";
-            select.add(new Option(placeholder, ""));
-        }
-
-        function validateForm() {
-            const complete =
-                stream.value &&
-                role.value &&
-                experience.value &&
-                document.getElementById("interviewType").value &&
-                document.getElementById("difficulty").value &&
-                document.getElementById("duration").value &&
-                document.getElementById("camera").value;
-
-            reviewButton.disabled = !complete;
-            return Boolean(complete);
-        }
-
-        stream.addEventListener("change", function () {
-            resetSelect(role, "Choose a target role");
-            resetSelect(experience, "Choose a role first");
-            role.disabled = true;
-            experience.disabled = true;
-            review.hidden = true;
-            startMessage.textContent = "";
-
-            if (this.value) {
-                roles[this.value].forEach(item => role.add(new Option(item, item)));
-                role.disabled = false;
-                message.textContent = "Now select your target role.";
-            } else {
-                resetSelect(role, "Choose a stream first");
-                message.textContent = "Start by selecting your career stream.";
-            }
-            validateForm();
+    if (stream.value) {
+        roleOptions[stream.value].forEach(function(name) {
+            const option = document.createElement("option");
+            option.value = name;
+            option.textContent = name;
+            role.appendChild(option);
         });
+        role.disabled = false;
+    }
+});
 
-        role.addEventListener("change", function () {
-            resetSelect(experience, "Choose your experience level");
-            experience.disabled = true;
-            review.hidden = true;
-            startMessage.textContent = "";
+role.addEventListener("change", function() {
+    resetSelect(experience, "Select experience");
+    experience.disabled = !role.value;
+});
 
-            if (this.value) {
-                experienceLevels.forEach(item =>
-                    experience.add(new Option(item, item))
-                );
-                experience.disabled = false;
-                message.textContent = "Now select your experience level.";
-            }
-            validateForm();
-        });
+document.getElementById("settingsForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-        document.querySelectorAll(
-            "#experience, #interviewType, #difficulty, #duration, #camera"
-        ).forEach(select => {
-            select.addEventListener("change", function () {
-                review.hidden = true;
-                startMessage.textContent = "";
-                message.textContent = "Complete all settings to review your interview.";
-                validateForm();
-            });
-        });
+    const settings = {
+        stream: stream.value,
+        role: role.value,
+        experience: experience.value,
+        interviewType: document.getElementById("interviewType").value,
+        difficulty: document.getElementById("difficulty").value,
+        duration: document.getElementById("duration").value,
+        camera: document.getElementById("camera").value
+    };
 
-        reviewButton.addEventListener("click", function () {
-            if (!validateForm()) {
-                message.textContent = "Please complete all seven selections first.";
-                return;
-            }
-
-            const values = [
-                ["Career stream", stream.options[stream.selectedIndex].text],
-                ["Target role", role.value],
-                ["Experience", experience.value],
-                ["Interview type", document.getElementById("interviewType").value],
-                ["Difficulty", document.getElementById("difficulty").value],
-                ["Duration", document.getElementById("duration").selectedOptions[0].text],
-                ["Camera", document.getElementById("camera").value === "on"
-                    ? "Camera ON" : "Camera OFF (voice only)"]
-            ];
-
-            document.getElementById("summary").innerHTML = values
-                .map(([label, value]) =>
-                    `<strong>${label}:</strong> ${value}`
-                )
-                .join("<br>");
-
-            review.hidden = false;
-            startMessage.textContent = "";
-            review.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        });
-
-        document.getElementById("editButton").addEventListener("click", function () {
-            review.hidden = true;
-            startMessage.textContent = "";
-        });
-
-        document.getElementById("startButton").addEventListener("click", function () {
-            startMessage.textContent =
-                "Your settings are confirmed. The live AI interview will be added in a later step.";
-        });
-
-        document.querySelectorAll(".setup-card select").forEach(select => {
-            select.addEventListener("change", validateForm);
-        });
-    </script>
-
+    try {
+        sessionStorage.setItem("careerPrepSettings", JSON.stringify(settings));
+        window.location.href = "intro.html";
+    } catch (error) {
+        document.getElementById("settingsMessage").textContent =
+            "Unable to save your settings. Please check your browser and try again.";
+    }
+});
+</script>
 </body>
 </html>
