@@ -4,32 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interview Preparation | CareerPrep AI</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
 
     <nav class="navbar">
         <div class="logo">CareerPrep <span>AI</span></div>
+
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="interview.html" class="active">Interview Preparation</a>
-            <a href="explore.html">Explore Career</a>
+            <a href="./index.html">Home</a>
+            <a href="./interview.html" class="active">Interview Preparation</a>
+            <a href="./explore.html">Explore Career</a>
         </div>
+
+        <a href="./interview.html" class="login-link">Get Started</a>
     </nav>
 
     <main class="hero">
         <span class="eyebrow">YOUR PRACTICE STARTS HERE</span>
+
         <h1>Prepare for Your <span>Next Interview</span></h1>
-        <p>Select your career stream and target role to begin setting up your mock interview.</p>
+
+        <p>
+            Tell us about your career goals so we can prepare
+            the right interview experience for you.
+        </p>
 
         <section class="setup-card">
+
             <label for="stream">1. Select your career stream</label>
             <select id="stream">
                 <option value="">Choose a stream</option>
-                <option value="it">IT & Technology</option>
+                <option value="it">IT &amp; Technology</option>
                 <option value="engineering">Engineering</option>
-                <option value="bpo">BPO & Customer Operations</option>
-                <option value="business">Business & Corporate</option>
+                <option value="bpo">BPO &amp; Customer Operations</option>
+                <option value="business">Business &amp; Corporate</option>
             </select>
 
             <label for="role">2. Select your target role</label>
@@ -37,29 +47,30 @@
                 <option value="">Choose a stream first</option>
             </select>
 
-            <p id="message" class="helper-text">
-                Your available job roles will appear after you select a stream.
+            <label for="experience">3. Select your experience level</label>
+            <select id="experience" disabled>
+                <option value="">Choose a role first</option>
+            </select>
+
+            <p id="message" class="helper-text" aria-live="polite">
+                Start by selecting your career stream.
             </p>
+
+            <div id="selection-summary" hidden>
+                <h2 style="margin-top: 24px; font-size: 19px;">
+                    Your selections
+                </h2>
+                <p id="summary-stream" class="helper-text"></p>
+                <p id="summary-role" class="helper-text"></p>
+                <p id="summary-experience" class="helper-text"></p>
+            </div>
+
         </section>
 
-        
-        <label for="experience">3. Select your experience level</label>
-        <select id="experience">
-            <option value="">Choose your experience level</option>
-            <option value="Fresher">Fresher</option>
-            <option value="0-2 years">0–2 years</option>
-            <option value="3-5 years">3–5 years</option>
-            <option value="6-10 years">6–10 years</option>
-            <option value="10+ years">10+ years</option>
-        </select>
-
-<p id="experience-message" class="helper-text">
-    Select the experience level that best describes you.
-</p>
-
-
         <p style="margin-top: 30px;">
-            <a href="index.html" class="card-button secondary">← Back to Home</a>
+            <a href="./index.html" class="card-button secondary">
+                ← Back to Home
+            </a>
         </p>
     </main>
 
@@ -80,6 +91,7 @@
                 "DevOps / Cloud Engineer",
                 "Technical Support"
             ],
+
             engineering: [
                 "Civil Engineer",
                 "Mechanical Engineer",
@@ -88,6 +100,7 @@
                 "Chemical Engineer",
                 "Construction Manager"
             ],
+
             bpo: [
                 "Customer Service Representative",
                 "Voice Process Executive",
@@ -96,6 +109,7 @@
                 "Back Office Executive",
                 "Team Leader"
             ],
+
             business: [
                 "HR / Recruiter",
                 "Finance / Accounting",
@@ -107,57 +121,103 @@
             ]
         };
 
+        const experienceLevels = [
+            "Fresher",
+            "0–2 years",
+            "3–5 years",
+            "6–10 years",
+            "10+ years"
+        ];
+
         const streamSelect = document.getElementById("stream");
         const roleSelect = document.getElementById("role");
+        const experienceSelect = document.getElementById("experience");
         const message = document.getElementById("message");
+        const summary = document.getElementById("selection-summary");
+
+        function resetDropdown(dropdown, placeholder) {
+            dropdown.innerHTML = "";
+            dropdown.add(new Option(placeholder, ""));
+        }
+
+        function updateSummary() {
+            const streamOption =
+                streamSelect.options[streamSelect.selectedIndex];
+
+            document.getElementById("summary-stream").textContent =
+                "Career stream: " + (streamSelect.value ? streamOption.text : "");
+
+            document.getElementById("summary-role").textContent =
+                "Target role: " + roleSelect.value;
+
+            document.getElementById("summary-experience").textContent =
+                "Experience: " + experienceSelect.value;
+
+            summary.hidden = !(
+                streamSelect.value &&
+                roleSelect.value &&
+                experienceSelect.value
+            );
+        }
 
         streamSelect.addEventListener("change", function () {
-            const selectedStream = this.value;
+            resetDropdown(roleSelect, "Choose a target role");
+            resetDropdown(experienceSelect, "Choose a role first");
 
-            roleSelect.innerHTML = "";
+            roleSelect.disabled = true;
+            experienceSelect.disabled = true;
+            summary.hidden = true;
 
-            if (!selectedStream) {
-                roleSelect.disabled = true;
-                roleSelect.add(new Option("Choose a stream first", ""));
+            if (!this.value) {
+                resetDropdown(roleSelect, "Choose a stream first");
                 message.textContent =
-                    "Your available job roles will appear after you select a stream.";
+                    "Start by selecting your career stream.";
                 return;
             }
 
-            roleSelect.disabled = false;
-            roleSelect.add(new Option("Choose a job role", ""));
-
-            roles[selectedStream].forEach(function (role) {
+            roles[this.value].forEach(function (role) {
                 roleSelect.add(new Option(role, role));
             });
 
+            roleSelect.disabled = false;
+
             message.textContent =
-                "Now select the role you want to prepare for.";
+                "Great! Now select the role you want to prepare for.";
         });
 
         roleSelect.addEventListener("change", function () {
-            if (this.value) {
-                message.textContent =
-                    "Selected role: " + this.value +
-                    ". Next, we'll configure your interview.";
+            resetDropdown(experienceSelect, "Choose your experience level");
+            summary.hidden = true;
+
+            if (!this.value) {
+                experienceSelect.disabled = true;
+                message.textContent = "Please select your target role.";
+                return;
             }
+
+            experienceLevels.forEach(function (level) {
+                experienceSelect.add(new Option(level, level));
+            });
+
+            experienceSelect.disabled = false;
+
+            message.textContent =
+                "Now choose your experience level.";
         });
 
-        
-        const experienceSelect = document.getElementById("experience");
-        const experienceMessage = document.getElementById("experience-message");
-
         experienceSelect.addEventListener("change", function () {
-            if (this.value) {
-                experienceMessage.textContent =
-                    "Experience selected: " + this.value +
-                    ". Next, we'll configure your interview.";
-            } else {
-                experienceMessage.textContent =
-                    "Select the experience level that best describes you.";
+            if (!this.value) {
+                message.textContent =
+                    "Choose the experience level that best describes you.";
+                summary.hidden = true;
+                return;
             }
-});
 
+            updateSummary();
+
+            message.textContent =
+                "Your selections are complete! Next, we'll configure your interview.";
+        });
     </script>
 
 </body>
