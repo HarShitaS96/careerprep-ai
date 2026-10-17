@@ -1,4 +1,8 @@
 
+/* =========================
+   1. GLOBAL STYLES
+========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +15,10 @@ body {
     color: #172033;
     min-height: 100vh;
 }
+
+/* =========================
+   2. NAVIGATION BAR
+========================= */
 
 .navbar {
     display: flex;
@@ -44,11 +52,17 @@ body {
     text-decoration: none;
     color: #5b6476;
     font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover,
+.login-link:hover {
+    color: #5145d9;
 }
 
 .nav-links a.active {
-    color: #5145d9;
-    font-weight: bold;
+    color: #5145d9 !important;
+    font-weight: 700;
 }
 
 .login-link {
@@ -56,6 +70,10 @@ body {
     font-weight: bold;
     white-space: nowrap;
 }
+
+/* =========================
+   3. HOMEPAGE HERO SECTION
+========================= */
 
 .hero {
     max-width: 1000px;
@@ -87,6 +105,10 @@ body {
     line-height: 1.8;
 }
 
+/* =========================
+   4. FEATURE CARDS
+========================= */
+
 .cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -101,7 +123,7 @@ body {
     border-radius: 18px;
     padding: 32px;
     box-shadow: 0 8px 28px rgba(28, 35, 70, 0.04);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .feature-card:hover {
@@ -126,6 +148,10 @@ body {
     margin-bottom: 26px;
 }
 
+/* =========================
+   5. BUTTONS
+========================= */
+
 .card-button {
     display: inline-block;
     background: #5145d9;
@@ -135,12 +161,86 @@ body {
     border-radius: 9px;
     font-size: 14px;
     font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.card-button:hover {
+    background: #3f35b5;
+    transform: translateY(-2px);
 }
 
 .card-button.secondary {
     background: #eeecff;
     color: #5145d9;
 }
+
+.card-button.secondary:hover {
+    background: #e0dcff;
+}
+
+/* =========================
+   6. INTERVIEW SETUP FORM
+========================= */
+
+.setup-card {
+    max-width: 620px;
+    margin: 40px auto 0;
+    padding: 32px;
+    background: white;
+    border: 1px solid #e7e9f2;
+    border-radius: 18px;
+    text-align: left;
+    box-shadow: 0 8px 28px rgba(28, 35, 70, 0.04);
+}
+
+.setup-card label {
+    display: block;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 20px 0 10px;
+}
+
+.setup-card label:first-child {
+    margin-top: 0;
+}
+
+.setup-card select {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d8dbea;
+    border-radius: 9px;
+    background: white;
+    font-family: inherit;
+    font-size: 15px;
+    color: #172033;
+    cursor: pointer;
+}
+
+.setup-card select:focus {
+    outline: 2px solid #5145d9;
+    outline-offset: 1px;
+    border-color: #5145d9;
+}
+
+.setup-card select:disabled {
+    background: #f1f2f6;
+    color: #8a91a2;
+    cursor: not-allowed;
+}
+
+.helper-text {
+    margin-top: 16px;
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================
+   7. FOOTER
+========================= */
 
 footer {
     text-align: center;
@@ -149,10 +249,15 @@ footer {
     font-size: 13px;
 }
 
+/* =========================
+   8. RESPONSIVE DESIGN
+========================= */
+
 @media (max-width: 760px) {
     .navbar {
         flex-wrap: wrap;
         padding: 20px 5%;
+        gap: 18px;
     }
 
     .nav-links {
@@ -162,20 +267,49 @@ footer {
         gap: 16px;
     }
 
+    .nav-links a {
+        font-size: 13px;
+    }
+
     .cards {
         grid-template-columns: 1fr;
     }
 
     .hero {
-        padding-top: 65px;
+        padding: 65px 18px;
     }
 
-    
-.nav-links a.active {
-    color: #5145d9 !important;
-    font-weight: 700;
-    border-bottom: 3px solid #5145d9;
-    padding-bottom: 6px;
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .setup-card {
+        padding: 24px 20px;
+    }
+
+    .feature-card {
+        padding: 26px;
+    }
 }
 
+/* =========================
+   9. SMALL MOBILE SCREENS
+========================= */
+
+@media (max-width: 380px) {
+    .logo {
+        font-size: 20px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .setup-card {
+        padding: 20px 16px;
+    }
 }
