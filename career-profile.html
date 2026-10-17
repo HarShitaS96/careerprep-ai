@@ -1,0 +1,309 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Profile | CareerPrep AI</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .profile-container {
+            max-width: 750px;
+            margin: 40px auto;
+        }
+
+        .profile-card {
+            background: #fff;
+            border: 1px solid #e7e9f2;
+            border-radius: 14px;
+            padding: 28px;
+            margin-top: 24px;
+        }
+
+        .profile-card label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: 600;
+        }
+
+        .profile-card input,
+        .profile-card select,
+        .profile-card textarea {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d9dce8;
+            border-radius: 8px;
+            font: inherit;
+            background: #fff;
+        }
+
+        .profile-card textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .profile-card input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .interest-option {
+            display: inline-flex !important;
+            align-items: center;
+            margin: 8px 16px 8px 0 !important;
+            font-weight: 400 !important;
+        }
+
+        .helper-text {
+            color: #626b7d;
+            line-height: 1.6;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .form-actions a {
+            text-decoration: none;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">CareerPrep <span>AI</span></a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="interview.html">Interview Preparation</a>
+            <a href="explore.html" class="active">Explore Career</a>
+        </div>
+    </nav>
+
+    <main class="page-container profile-container">
+
+        <span class="eyebrow">YOUR CAREER JOURNEY</span>
+        <h1 id="pageTitle">Build Your Career Profile</h1>
+
+        <p class="helper-text" id="pageDescription">
+            Tell us a little about yourself so we can help you explore career options.
+        </p>
+
+        <form id="careerProfileForm" class="profile-card">
+
+            <section id="resumeSection" hidden>
+                <h2>Upload Your Resume</h2>
+
+                <p class="helper-text">
+                    Select a PDF, DOC, or DOCX resume. For this first version,
+                    the file will be selected in your browser but will not be
+                    uploaded to a server or automatically analyzed.
+                </p>
+
+                <label for="resume">Choose your resume</label>
+                <input
+                    type="file"
+                    id="resume"
+                    name="resume"
+                    accept=".pdf,.doc,.docx"
+                >
+            </section>
+
+            <section id="manualSection" hidden>
+                <h2>About You</h2>
+
+                <label for="education">Highest Education</label>
+                <select id="education" name="education">
+                    <option value="">Select education</option>
+                    <option value="High School">High School</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Bachelor's Degree">Bachelor's Degree</option>
+                    <option value="Master's Degree">Master's Degree</option>
+                    <option value="Doctorate">Doctorate</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="fieldOfStudy">Field of Study</label>
+                <input
+                    type="text"
+                    id="fieldOfStudy"
+                    name="fieldOfStudy"
+                    placeholder="e.g. Computer Science, Civil Engineering"
+                >
+
+                <label for="experience">Work Experience</label>
+                <select id="experience" name="experience">
+                    <option value="">Select experience</option>
+                    <option value="Fresher">Fresher / No experience</option>
+                    <option value="0–2 years">0–2 years</option>
+                    <option value="3–5 years">3–5 years</option>
+                    <option value="6–10 years">6–10 years</option>
+                    <option value="10+ years">10+ years</option>
+                </select>
+            </section>
+
+            <section>
+                <h2>Your Interests and Skills</h2>
+
+                <label for="careerStream">Preferred Career Area</label>
+                <select id="careerStream" name="careerStream" required>
+                    <option value="">Select a career area</option>
+                    <option value="IT & Technology">IT & Technology</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="BPO & Customer Operations">BPO & Customer Operations</option>
+                    <option value="Business & Corporate">Business & Corporate</option>
+                    <option value="Finance & Accounting">Finance & Accounting</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Design & Creative">Design & Creative</option>
+                    <option value="Not sure yet">Not sure yet</option>
+                </select>
+
+                <label for="skills">Your Skills</label>
+                <textarea
+                    id="skills"
+                    name="skills"
+                    placeholder="e.g. SQL, communication, problem-solving, Excel"
+                ></textarea>
+
+                <label for="interests">What do you enjoy or want to learn?</label>
+                <textarea
+                    id="interests"
+                    name="interests"
+                    placeholder="Tell us about your interests, preferred work, or subjects you enjoy."
+                ></textarea>
+
+                <label for="workPreference">Preferred Work Style</label>
+                <select id="workPreference" name="workPreference">
+                    <option value="">No preference</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Office-based">Office-based</option>
+                    <option value="Field-based">Field-based</option>
+                </select>
+            </section>
+
+            <p id="formMessage" class="helper-text" aria-live="polite"></p>
+
+            <div class="form-actions">
+                <button type="submit" class="card-button">Continue →</button>
+                <a href="explore.html" class="secondary-action">Back</a>
+            </div>
+
+        </form>
+
+    </main>
+
+    <footer>
+        <p>© 2026 CareerPrep AI · Your journey, your future.</p>
+    </footer>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const method = params.get("method");
+
+        const resumeSection = document.getElementById("resumeSection");
+        const manualSection = document.getElementById("manualSection");
+        const resumeInput = document.getElementById("resume");
+
+        const educationInput = document.getElementById("education");
+        const fieldOfStudyInput = document.getElementById("fieldOfStudy");
+        const experienceInput = document.getElementById("experience");
+
+        const form = document.getElementById("careerProfileForm");
+        const formMessage = document.getElementById("formMessage");
+
+        if (method === "resume") {
+            document.getElementById("pageTitle").textContent =
+                "Explore Careers Using Your Resume";
+
+            document.getElementById("pageDescription").textContent =
+                "Select your resume and tell us what kind of opportunities interest you.";
+
+            resumeSection.hidden = false;
+            resumeInput.required = true;
+
+            manualSection.hidden = true;
+            educationInput.disabled = true;
+            fieldOfStudyInput.disabled = true;
+            experienceInput.disabled = true;
+
+        } else if (method === "manual") {
+            document.getElementById("pageTitle").textContent =
+                "Explore Careers Without a Resume";
+
+            document.getElementById("pageDescription").textContent =
+                "Share your education, experience, skills and interests to get started.";
+
+            manualSection.hidden = false;
+            resumeSection.hidden = true;
+            resumeInput.disabled = true;
+
+        } else {
+            document.getElementById("pageTitle").textContent =
+                "Build Your Career Profile";
+
+            document.getElementById("pageDescription").textContent =
+                "Choose how you would like to explore career options.";
+
+            manualSection.hidden = false;
+            resumeSection.hidden = true;
+            resumeInput.disabled = true;
+        }
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            formMessage.textContent = "";
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (method === "resume" && !resumeInput.files.length) {
+                formMessage.textContent = "Please select your resume to continue.";
+                return;
+            }
+
+            const profile = {
+                method: method === "resume" ? "resume" : "manual",
+                education: educationInput.value,
+                fieldOfStudy: fieldOfStudyInput.value.trim(),
+                experience: experienceInput.value,
+                careerStream: document.getElementById("careerStream").value,
+                skills: document.getElementById("skills").value.trim(),
+                interests: document.getElementById("interests").value.trim(),
+                workPreference: document.getElementById("workPreference").value,
+                resumeFileName:
+                    method === "resume" && resumeInput.files.length
+                        ? resumeInput.files[0].name
+                        : ""
+            };
+
+            try {
+                sessionStorage.setItem(
+                    "careerPrepCareerProfile",
+                    JSON.stringify(profile)
+                );
+
+                window.location.href = "career-recommendations.html";
+
+            } catch (error) {
+                formMessage.textContent =
+                    "Your profile could not be saved in this browser. Please try again.";
+            }
+        });
+    </script>
+
+</body>
+</html>
+```
