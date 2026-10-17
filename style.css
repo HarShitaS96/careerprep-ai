@@ -312,4 +312,52 @@ footer {
     .setup-card {
         padding: 20px 16px;
     }
+
+   
+.form-heading {
+    font-size: 20px;
+    margin-bottom: 22px;
+    color: #172033;
+}
+
+.form-divider {
+    height: 1px;
+    background: #e8eaf2;
+    margin: 32px 0;
+}
+
+.setup-card button:disabled {
+    background: #d7d9e5;
+    color: #73798a;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.review-panel {
+    margin-top: 30px;
+    padding: 24px;
+    background: #f7f8fc;
+    border: 1px solid #e7e9f2;
+    border-radius: 12px;
+}
+
+.review-panel h2 {
+    font-size: 21px;
+    margin-bottom: 18px;
+}
+
+.review-panel p {
+    margin-bottom: 18px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.review-panel button {
+    margin: 6px 6px 6px 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
 }
