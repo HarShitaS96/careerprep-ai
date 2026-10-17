@@ -169,4 +169,13 @@ footer {
     .hero {
         padding-top: 65px;
     }
+
+    
+.nav-links a.active {
+    color: #5145d9 !important;
+    font-weight: 700;
+    border-bottom: 3px solid #5145d9;
+    padding-bottom: 6px;
+}
+
 }
