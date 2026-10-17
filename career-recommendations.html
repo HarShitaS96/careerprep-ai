@@ -394,8 +394,8 @@
 
             const button = document.createElement("a");
             button.className = "card-button";
-            button.href = "interview.html";
-            button.textContent = "Practise for Interviews →";
+            button.href = "career-details.html?role=" + encodeURIComponent(career.title);
+            button.textContent = "Explore Career Details →";
 
             button.addEventListener("click", function() {
                 try {
