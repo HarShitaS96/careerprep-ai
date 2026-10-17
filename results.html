@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Summary | CareerPrep AI</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .results-container {
+            max-width: 850px;
+            margin: 40px auto;
+        }
+        .result-card {
+            padding: 24px;
+            background: #f7f8fc;
+            border: 1px solid #e7e9f2;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .result-card h2 {
+            margin-bottom: 12px;
+        }
+        .answer-review {
+            padding: 18px 0;
+            border-bottom: 1px solid #e1e4ed;
+        }
+        .answer-review:last-child {
+            border-bottom: none;
+        }
+        .answer-review p {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            line-height: 1.7;
+        }
+        .result-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+        .result-actions a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">CareerPrep AI</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="interview.html" class="active">Interview Preparation</a>
+            <a href="explore.html">Explore Career</a>
+        </div>
+    </nav>
+
+    <main class="page-container results-container">
+        <section class="setup-card">
+            <h1>Practice Session Summary</h1>
+            <p id="candidateResult" class="helper-text"></p>
+
+            <div class="result-card">
+                <h2 id="completionTitle">Your practice is complete!</h2>
+                <p id="completionSummary"></p>
+            </div>
+
+            <h2>Your Answers</h2>
+            <div id="answerReviews"></div>
+
+            <p class="helper-text">
+                This is a summary of your submitted answers, not an AI assessment.
+                Detailed feedback, strengths, improvement suggestions and scoring
+                will be added when the evaluation feature is connected.
+            </p>
+
+            <div class="result-actions">
+                <a href="start-interview.html" class="card-button">Practise Again</a>
+                <a href="index.html" class="secondary-action">Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const questionList = [
+            "Tell me about yourself, including your education, experience and key skills.",
+            "What are your strongest skills, and how have you used them?",
+            "Describe a challenging problem you faced and explain how you solved it.",
+            "Tell me about a time you worked with others to achieve a goal.",
+            "Why are you interested in this role, and what would you like to learn next?"
+        ];
+
+        const answerReviews = document.getElementById("answerReviews");
+
+        try {
+            const savedAnswers = sessionStorage.getItem("careerPrepAnswers");
+            const answers = savedAnswers ? JSON.parse(savedAnswers) : [];
+
+            const savedCandidate = sessionStorage.getItem("careerPrepCandidate");
+            const candidate = savedCandidate ? JSON.parse(savedCandidate) : null;
+
+            document.getElementById("candidateResult").textContent =
+                candidate && candidate.name
+                    ? "Well done, " + candidate.name + ". Here is your practice-session summary."
+                    : "Here is your practice-session summary.";
+
+            const answeredCount = questionList.filter(
+                (question, index) =>
+                    typeof answers[index] === "string" && answers[index].trim().length > 0
+            ).length;
+
+            document.getElementById("completionSummary").textContent =
+                "You submitted " + answeredCount + " out of " +
+                questionList.length + " practice answers.";
+
+            questionList.forEach(function(question, index) {
+                const section = document.createElement("section");
+                section.className = "answer-review";
+
+                const heading = document.createElement("h3");
+                heading.textContent = "Question " + (index + 1);
+
+                const questionParagraph = document.createElement("p");
+                questionParagraph.textContent = question;
+
+                const answerParagraph = document.createElement("p");
+                answerParagraph.textContent =
+                    answers[index] && answers[index].trim()
+                        ? answers[index]
+                        : "No answer submitted.";
+
+                section.appendChild(heading);
+                section.appendChild(questionParagraph);
+
+                const answerLabel = document.createElement("strong");
+                answerLabel.textContent = "Your answer:";
+                section.appendChild(answerLabel);
+                section.appendChild(answerParagraph);
+
+                answerReviews.appendChild(section);
+            });
+        } catch (error) {
+            document.getElementById("completionTitle").textContent =
+                "No saved practice session found";
+            document.getElementById("completionSummary").textContent =
+                "Start a practice interview to see your answers here.";
+        }
+    </script>
+
+</body>
+</html>
