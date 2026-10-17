@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo">CareerPrep <span>AI</span></div>
+        <a href="index.html" class="logo">CareerPrep <span>AI</span></a>
 
         <div class="nav-links">
             <a href="index.html">Home</a>
@@ -30,21 +30,44 @@
         </p>
 
         <div class="cards">
-            <article class="feature-card">
+
+            <a href="career-profile.html?method=resume"
+               class="feature-card"
+               style="text-decoration: none; color: inherit;">
+
                 <div class="card-icon">📄</div>
                 <h2>Explore Using Your Resume</h2>
-                <p>Use your existing resume to help identify possible career paths.</p>
-            </article>
 
-            <article class="feature-card">
+                <p>
+                    Start with your resume and discover potential
+                    career paths based on your existing experience
+                    and skills.
+                </p>
+
+                <span class="card-button">Upload Resume →</span>
+            </a>
+
+            <a href="career-profile.html?method=manual"
+               class="feature-card"
+               style="text-decoration: none; color: inherit;">
+
                 <div class="card-icon">🧭</div>
                 <h2>Explore Without a Resume</h2>
-                <p>Start with your education, skills and interests instead.</p>
-            </article>
+
+                <p>
+                    Tell us about your education, interests and
+                    skills to explore career options that may suit you.
+                </p>
+
+                <span class="card-button">Explore Manually →</span>
+            </a>
+
         </div>
 
         <p style="margin-top: 32px;">
-            <a href="index.html" class="card-button secondary">← Back to Home</a>
+            <a href="index.html" class="card-button secondary">
+                ← Back to Home
+            </a>
         </p>
     </main>
 
@@ -54,3 +77,4 @@
 
 </body>
 </html>
+```
