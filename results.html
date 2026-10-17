@@ -1,16 +1,18 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practice Summary | CareerPrep AI</title>
+    <title>Interview Evaluation | CareerPrep AI</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
         .results-container {
             max-width: 850px;
             margin: 40px auto;
         }
+
         .result-card {
             padding: 24px;
             background: #f7f8fc;
@@ -18,32 +20,111 @@
             border-radius: 12px;
             margin: 20px 0;
         }
+
         .result-card h2 {
             margin-bottom: 12px;
         }
+
+        .score-section {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .score-circle {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            border: 8px solid #dce3f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .score-number {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 13px;
+            color: #626b7d;
+        }
+
+        .feedback-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .feedback-card {
+            padding: 20px;
+            border: 1px solid #e7e9f2;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .feedback-card h3 {
+            margin-top: 0;
+        }
+
+        .feedback-card ul {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
         .answer-review {
-            padding: 18px 0;
+            padding: 20px 0;
             border-bottom: 1px solid #e1e4ed;
         }
+
         .answer-review:last-child {
             border-bottom: none;
         }
+
         .answer-review p {
             white-space: pre-wrap;
             overflow-wrap: anywhere;
             line-height: 1.7;
         }
+
+        .answer-feedback {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 8px;
+            background: #f7f8fc;
+            line-height: 1.7;
+        }
+
+        .answer-score {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
         .result-actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin-top: 24px;
         }
+
         .result-actions a {
             text-decoration: none;
+            text-align: center;
+        }
+
+        .disclaimer {
+            font-size: 13px;
+            color: #626b7d;
+            line-height: 1.7;
         }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar">
@@ -57,27 +138,59 @@
 
     <main class="page-container results-container">
         <section class="setup-card">
-            <h1>Practice Session Summary</h1>
+
+            <h1>Interview Evaluation Report</h1>
             <p id="candidateResult" class="helper-text"></p>
 
             <div class="result-card">
-                <h2 id="completionTitle">Your practice is complete!</h2>
-                <p id="completionSummary"></p>
+                <div class="score-section">
+                    <div class="score-circle">
+                        <span id="overallScore" class="score-number">0</span>
+                        <span class="score-label">out of 100</span>
+                    </div>
+
+                    <div>
+                        <h2 id="completionTitle">Your practice is complete!</h2>
+                        <p id="completionSummary"></p>
+                        <p id="performanceLevel"></p>
+                    </div>
+                </div>
             </div>
 
-            <h2>Your Answers</h2>
+            <h2>Performance Overview</h2>
+
+            <div class="feedback-grid">
+                <div class="feedback-card">
+                    <h3>Strengths</h3>
+                    <ul id="strengthList"></ul>
+                </div>
+
+                <div class="feedback-card">
+                    <h3>Areas to Improve</h3>
+                    <ul id="improvementList"></ul>
+                </div>
+            </div>
+
+            <h2>Question-by-Question Feedback</h2>
             <div id="answerReviews"></div>
 
-            <p class="helper-text">
-                This is a summary of your submitted answers, not an AI assessment.
-                Detailed feedback, strengths, improvement suggestions and scoring
-                will be added when the evaluation feature is connected.
+            <div class="result-card">
+                <h2>Next Steps</h2>
+                <p id="nextSteps"></p>
+            </div>
+
+            <p class="disclaimer">
+                This is an initial rule-based evaluation of answer length and
+                basic structure. It does not verify technical accuracy, measure
+                actual confidence or assess spoken communication. The score is
+                indicative, not a professional hiring assessment.
             </p>
 
             <div class="result-actions">
-                <a href="start-interview.html" class="card-button">Practise Again</a>
+                <a href="interview.html" class="card-button">Practice Again</a>
                 <a href="index.html" class="secondary-action">Back to Home</a>
             </div>
+
         </section>
     </main>
 
@@ -91,6 +204,88 @@
         ];
 
         const answerReviews = document.getElementById("answerReviews");
+        const strengthList = document.getElementById("strengthList");
+        const improvementList = document.getElementById("improvementList");
+
+        function addListItem(list, message) {
+            const item = document.createElement("li");
+            item.textContent = message;
+            list.appendChild(item);
+        }
+
+        function evaluateAnswer(answer, questionIndex) {
+            const text = answer.trim();
+            const words = text ? text.split(/\s+/).filter(Boolean) : [];
+            const wordCount = words.length;
+            const lower = text.toLowerCase();
+
+            let score = 0;
+            const feedback = [];
+
+            if (wordCount === 0) {
+                return {
+                    score: 0,
+                    wordCount: 0,
+                    feedback: "No answer was submitted. Try answering in 3–6 clear sentences."
+                };
+            }
+
+            // Evaluate answer completeness.
+            if (wordCount < 10) {
+                score += 15;
+                feedback.push("Your answer is quite short. Add more detail and a specific example.");
+            } else if (wordCount < 30) {
+                score += 25;
+                feedback.push("You have made a start. Explain your point in more detail.");
+            } else if (wordCount <= 100) {
+                score += 40;
+                feedback.push("Your answer has a useful amount of detail.");
+            } else {
+                score += 40;
+                feedback.push("Your answer is detailed. Keep it focused so the main points stand out.");
+            }
+
+            // Check for signs of examples or explanation.
+            const exampleWords = [
+                "for example", "for instance", "because", "therefore",
+                "result", "achieved", "improved", "resolved", "learned",
+                "project", "experience", "team", "solution"
+            ];
+
+            const hasExample = exampleWords.some(function(word) {
+                return lower.includes(word);
+            });
+
+            if (hasExample) {
+                score += 25;
+                feedback.push("You included context or an explanatory detail. Continue connecting your points to real examples.");
+            } else {
+                feedback.push("Where possible, include a real example to support your answer.");
+            }
+
+            // Look for a basic beginning, middle and ending structure.
+            const hasStructure = /first|then|finally|as a result|in conclusion|overall|my role|the outcome|the result/i.test(text);
+
+            if (hasStructure) {
+                score += 20;
+                feedback.push("Your wording suggests some structure. Keep your answer in a clear sequence.");
+            } else {
+                feedback.push("Use a simple structure: situation, action and result, where relevant.");
+            }
+
+            // Reward a response that attempts to answer rather than a very short fragment.
+            if (wordCount >= 20) {
+                score += 15;
+            }
+
+            score = Math.min(score, 100);
+
+            return {
+                score: score,
+                wordCount: wordCount,
+                feedback: feedback.join(" ")
+            };
+        }
 
         try {
             const savedAnswers = sessionStorage.getItem("careerPrepAnswers");
@@ -101,19 +296,105 @@
 
             document.getElementById("candidateResult").textContent =
                 candidate && candidate.name
-                    ? "Well done, " + candidate.name + ". Here is your practice-session summary."
-                    : "Here is your practice-session summary.";
+                    ? "Well done, " + candidate.name + ". Here is your practice-session evaluation."
+                    : "Here is your practice-session evaluation.";
 
-            const answeredCount = questionList.filter(
-                (question, index) =>
-                    typeof answers[index] === "string" && answers[index].trim().length > 0
-            ).length;
+            const evaluations = questionList.map(function(question, index) {
+                const answer = typeof answers[index] === "string" ? answers[index] : "";
+                return evaluateAnswer(answer, index);
+            });
+
+            const answeredCount = evaluations.filter(function(result) {
+                return result.wordCount > 0;
+            }).length;
+
+            const totalScore = evaluations.reduce(function(total, result) {
+                return total + result.score;
+            }, 0);
+
+            const overallScore = Math.round(totalScore / questionList.length);
+
+            document.getElementById("overallScore").textContent = overallScore;
 
             document.getElementById("completionSummary").textContent =
                 "You submitted " + answeredCount + " out of " +
-                questionList.length + " practice answers.";
+                questionList.length + " answers.";
+
+            let performance = "";
+
+            if (answeredCount === 0) {
+                performance = "No answers available to evaluate.";
+            } else if (overallScore >= 80) {
+                performance = "Your responses show promising completeness and structure.";
+            } else if (overallScore >= 60) {
+                performance = "You have a foundation to build on. Focus on adding clear examples.";
+            } else if (overallScore >= 35) {
+                performance = "Keep practising. More detail and clearer examples can strengthen your answers.";
+            } else {
+                performance = "Start with complete sentences and explain your reasoning step by step.";
+            }
+
+            document.getElementById("performanceLevel").textContent = performance;
+
+            const answeredEvaluations = evaluations.filter(function(result) {
+                return result.wordCount > 0;
+            });
+
+            const averageWords = answeredEvaluations.length
+                ? Math.round(
+                    answeredEvaluations.reduce(function(total, result) {
+                        return total + result.wordCount;
+                    }, 0) / answeredEvaluations.length
+                )
+                : 0;
+
+            if (answeredCount > 0) {
+                addListItem(
+                    strengthList,
+                    "You attempted " + answeredCount + " of " + questionList.length + " questions."
+                );
+
+                if (averageWords >= 30) {
+                    addListItem(strengthList, "Your answers generally include useful detail.");
+                } else {
+                    addListItem(strengthList, "You have completed a practice round and can build on it.");
+                }
+
+                if (overallScore >= 60) {
+                    addListItem(strengthList, "Several responses show signs of explanation or structure.");
+                }
+            } else {
+                addListItem(strengthList, "Start by attempting each question in complete sentences.");
+            }
+
+            if (answeredCount < questionList.length) {
+                addListItem(
+                    improvementList,
+                    "Answer all five questions to get a more complete practice report."
+                );
+            }
+
+            if (averageWords < 30) {
+                addListItem(
+                    improvementList,
+                    "Develop answers with a little more detail and a specific example."
+                );
+            }
+
+            addListItem(
+                improvementList,
+                "For experience-based questions, explain the situation, your action and the result."
+            );
+
+            addListItem(
+                improvementList,
+                "Review whether each answer directly addresses what the question asks."
+            );
 
             questionList.forEach(function(question, index) {
+                const answer = typeof answers[index] === "string" ? answers[index] : "";
+                const evaluation = evaluations[index];
+
                 const section = document.createElement("section");
                 section.className = "answer-review";
 
@@ -123,29 +404,54 @@
                 const questionParagraph = document.createElement("p");
                 questionParagraph.textContent = question;
 
+                const answerLabel = document.createElement("strong");
+                answerLabel.textContent = "Your answer:";
+
                 const answerParagraph = document.createElement("p");
                 answerParagraph.textContent =
-                    answers[index] && answers[index].trim()
-                        ? answers[index]
-                        : "No answer submitted.";
+                    answer.trim() ? answer : "No answer submitted.";
+
+                const feedbackBox = document.createElement("div");
+                feedbackBox.className = "answer-feedback";
+
+                const scoreParagraph = document.createElement("p");
+                scoreParagraph.className = "answer-score";
+                scoreParagraph.textContent =
+                    "Indicative completeness score: " + evaluation.score + "/100";
+
+                const feedbackParagraph = document.createElement("p");
+                feedbackParagraph.textContent = evaluation.feedback;
+
+                feedbackBox.appendChild(scoreParagraph);
+                feedbackBox.appendChild(feedbackParagraph);
 
                 section.appendChild(heading);
                 section.appendChild(questionParagraph);
-
-                const answerLabel = document.createElement("strong");
-                answerLabel.textContent = "Your answer:";
                 section.appendChild(answerLabel);
                 section.appendChild(answerParagraph);
+                section.appendChild(feedbackBox);
 
                 answerReviews.appendChild(section);
             });
+
+            document.getElementById("nextSteps").textContent =
+                "Practise again and aim to give focused answers with a clear example. " +
+                "For experience-based questions, describe the situation, explain what you did, " +
+                "and share the result or what you learned.";
+
         } catch (error) {
             document.getElementById("completionTitle").textContent =
                 "No saved practice session found";
+
             document.getElementById("completionSummary").textContent =
-                "Start a practice interview to see your answers here.";
+                "Start a practice interview to see your evaluation here.";
+
+            document.getElementById("overallScore").textContent = "—";
+            document.getElementById("nextSteps").textContent =
+                "Return to Interview Preparation and complete a practice session.";
         }
     </script>
 
 </body>
 </html>
+```
