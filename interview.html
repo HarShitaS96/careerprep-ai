@@ -11,7 +11,6 @@
 
     <nav class="navbar">
         <div class="logo">CareerPrep <span>AI</span></div>
-
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="interview.html" class="active">Interview Preparation</a>
@@ -21,41 +20,30 @@
 
     <main class="hero">
         <span class="eyebrow">YOUR PRACTICE STARTS HERE</span>
-
         <h1>Prepare for Your <span>Next Interview</span></h1>
+        <p>Select your career stream and target role to begin setting up your mock interview.</p>
 
-        <p>
-            Choose your career stream and target role.
-            We'll help you prepare for a realistic mock interview.
-        </p>
+        <section class="setup-card">
+            <label for="stream">1. Select your career stream</label>
+            <select id="stream">
+                <option value="">Choose a stream</option>
+                <option value="it">IT & Technology</option>
+                <option value="engineering">Engineering</option>
+                <option value="bpo">BPO & Customer Operations</option>
+                <option value="business">Business & Corporate</option>
+            </select>
 
-        <div class="cards">
-            <article class="feature-card">
-                <div class="card-icon">💻</div>
-                <h2>IT & Technology</h2>
-                <p>Software development, testing, SAP, data and more.</p>
-            </article>
+            <label for="role">2. Select your target role</label>
+            <select id="role" disabled>
+                <option value="">Choose a stream first</option>
+            </select>
 
-            <article class="feature-card">
-                <div class="card-icon">🏗️</div>
-                <h2>Engineering</h2>
-                <p>Civil, mechanical, electrical and other engineering roles.</p>
-            </article>
+            <p id="message" class="helper-text">
+                Your available job roles will appear after you select a stream.
+            </p>
+        </section>
 
-            <article class="feature-card">
-                <div class="card-icon">🎧</div>
-                <h2>BPO & Customer Operations</h2>
-                <p>Customer service, voice, non-voice and support roles.</p>
-            </article>
-
-            <article class="feature-card">
-                <div class="card-icon">📊</div>
-                <h2>Business & Corporate</h2>
-                <p>HR, finance, sales, marketing and management.</p>
-            </article>
-        </div>
-
-        <p style="margin-top: 32px;">
+        <p style="margin-top: 30px;">
             <a href="index.html" class="card-button secondary">← Back to Home</a>
         </p>
     </main>
@@ -63,6 +51,83 @@
     <footer>
         <p>© 2026 CareerPrep AI · Your journey, your future.</p>
     </footer>
+
+    <script>
+        const roles = {
+            it: [
+                "Software Developer",
+                "Software Tester / QA",
+                "SAP Consultant",
+                "Data Analyst",
+                "Data Engineer",
+                "Business Analyst",
+                "Project Manager",
+                "DevOps / Cloud Engineer",
+                "Technical Support"
+            ],
+            engineering: [
+                "Civil Engineer",
+                "Mechanical Engineer",
+                "Electrical Engineer",
+                "Electronics & Communication Engineer",
+                "Chemical Engineer",
+                "Construction Manager"
+            ],
+            bpo: [
+                "Customer Service Representative",
+                "Voice Process Executive",
+                "Non-Voice Process Executive",
+                "Technical Support Executive",
+                "Back Office Executive",
+                "Team Leader"
+            ],
+            business: [
+                "HR / Recruiter",
+                "Finance / Accounting",
+                "Sales Executive",
+                "Marketing Executive",
+                "Operations Manager",
+                "Supply Chain Analyst",
+                "Banking / Insurance Professional"
+            ]
+        };
+
+        const streamSelect = document.getElementById("stream");
+        const roleSelect = document.getElementById("role");
+        const message = document.getElementById("message");
+
+        streamSelect.addEventListener("change", function () {
+            const selectedStream = this.value;
+
+            roleSelect.innerHTML = "";
+
+            if (!selectedStream) {
+                roleSelect.disabled = true;
+                roleSelect.add(new Option("Choose a stream first", ""));
+                message.textContent =
+                    "Your available job roles will appear after you select a stream.";
+                return;
+            }
+
+            roleSelect.disabled = false;
+            roleSelect.add(new Option("Choose a job role", ""));
+
+            roles[selectedStream].forEach(function (role) {
+                roleSelect.add(new Option(role, role));
+            });
+
+            message.textContent =
+                "Now select the role you want to prepare for.";
+        });
+
+        roleSelect.addEventListener("change", function () {
+            if (this.value) {
+                message.textContent =
+                    "Selected role: " + this.value +
+                    ". Next, we'll configure your interview.";
+            }
+        });
+    </script>
 
 </body>
 </html>
