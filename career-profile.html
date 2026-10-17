@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,19 +61,42 @@
             line-height: 1.6;
         }
 
-        .form-actions {
+        /* Button appearance is handled by the shared stylesheet */
+        .profile-card .form-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            align-items: stretch;
+            gap: 14px;
             margin-top: 24px;
+            width: 100%;
         }
 
-        .form-actions a {
-            text-decoration: none;
+        .profile-card .form-actions > button,
+        .profile-card .form-actions > a {
+            flex: 1 1 180px;
+            min-width: 0;
+            min-height: 46px;
         }
 
         [hidden] {
             display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                padding: 22px 18px;
+            }
+
+            .profile-card .form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .profile-card .form-actions > button,
+            .profile-card .form-actions > a {
+                width: 100%;
+                flex: 1 1 auto;
+            }
         }
     </style>
 </head>
@@ -195,8 +218,13 @@
             <p id="formMessage" class="helper-text" aria-live="polite"></p>
 
             <div class="form-actions">
-                <button type="submit" class="card-button">Continue →</button>
-                <a href="explore.html" class="secondary-action">Back</a>
+                <button type="submit" class="card-button">
+                    Continue →
+                </button>
+
+                <a href="explore.html" class="secondary-action">
+                    ← Back
+                </a>
             </div>
 
         </form>
@@ -270,7 +298,8 @@
             }
 
             if (method === "resume" && !resumeInput.files.length) {
-                formMessage.textContent = "Please select your resume to continue.";
+                formMessage.textContent =
+                    "Please select your resume to continue.";
                 return;
             }
 
@@ -306,4 +335,3 @@
 
 </body>
 </html>
-```
