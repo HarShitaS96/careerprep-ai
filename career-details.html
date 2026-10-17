@@ -1,0 +1,563 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Details | CareerPrep AI</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .details-container {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .details-card {
+            background: #f7f8fc;
+            border: 1px solid #e7e9f2;
+            border-radius: 14px;
+            padding: 24px;
+            margin: 22px 0;
+        }
+
+        .details-card h2 {
+            margin-top: 0;
+        }
+
+        .details-card p,
+        .details-card li {
+            line-height: 1.8;
+        }
+
+        .details-card li {
+            margin-bottom: 7px;
+        }
+
+        .roadmap-step {
+            border-left: 3px solid #7c83fd;
+            padding: 4px 0 4px 18px;
+            margin: 18px 0;
+        }
+
+        .roadmap-step h3 {
+            margin-bottom: 5px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 28px 0;
+        }
+
+        .actions a {
+            text-decoration: none;
+        }
+
+        .helper-text {
+            color: #626b7d;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+            .details-container {
+                margin: 24px 16px;
+            }
+
+            .details-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">CareerPrep <span>AI</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="interview.html">Interview Preparation</a>
+            <a href="explore.html" class="active">Explore Career</a>
+        </div>
+    </nav>
+
+    <main class="page-container details-container">
+        <span class="eyebrow">YOUR CAREER GUIDE</span>
+        <h1 id="roleTitle">Career Details</h1>
+        <p id="roleDescription" class="helper-text"></p>
+
+        <section class="details-card">
+            <h2>What does this role involve?</h2>
+            <p id="responsibilities"></p>
+        </section>
+
+        <section class="details-card">
+            <h2>Skills to develop</h2>
+            <ul id="skillsList"></ul>
+        </section>
+
+        <section class="details-card">
+            <h2>Your learning roadmap</h2>
+            <div id="roadmap"></div>
+        </section>
+
+        <section class="details-card">
+            <h2>Career growth opportunities</h2>
+            <p id="careerGrowth"></p>
+        </section>
+
+        <p class="helper-text">
+            This guide is a general starting point. Specific responsibilities,
+            tools and qualifications vary by employer and industry.
+        </p>
+
+        <div class="actions">
+            <a href="interview.html" id="interviewButton" class="card-button">
+                Practise for Interviews →
+            </a>
+            <a href="career-recommendations.html" class="secondary-action">
+                ← Back to Recommendations
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 CareerPrep AI · Your journey, your future.</p>
+    </footer>
+
+    <script>
+        const careerDetails = {
+            "Software Developer": {
+                description: "Build, test and maintain software applications and features.",
+                responsibilities: "Write code, fix bugs, review changes, test functionality and work with other team members to deliver software.",
+                skills: ["Programming fundamentals", "One language such as Java, Python or JavaScript", "Data structures and problem-solving", "Git and version control", "Testing and debugging"],
+                roadmap: [
+                    ["Step 1: Learn the fundamentals", "Choose one programming language and practise basic syntax, functions and data structures."],
+                    ["Step 2: Build projects", "Create small applications and learn to debug and test them."],
+                    ["Step 3: Learn development tools", "Practise Git, APIs, databases and collaborative development."],
+                    ["Step 4: Prepare for roles", "Build a portfolio and practise coding and project-related interview questions."]
+                ],
+                growth: "Junior Developer → Software Developer → Senior Developer → Technical Lead or Software Architect."
+            },
+            "Data Analyst": {
+                description: "Analyze data and communicate insights that help organizations make informed decisions.",
+                responsibilities: "Collect, clean and analyze data; create reports and dashboards; identify trends; and explain findings to stakeholders.",
+                skills: ["Excel or spreadsheets", "SQL", "Data cleaning and analysis", "Power BI or Tableau", "Basic statistics and communication"],
+                roadmap: [
+                    ["Step 1: Learn spreadsheets", "Practise formulas, pivot tables and data cleaning."],
+                    ["Step 2: Learn SQL", "Practise filtering, joins, aggregation and subqueries."],
+                    ["Step 3: Build dashboards", "Create visual reports using Power BI or Tableau."],
+                    ["Step 4: Complete projects", "Analyze a sample dataset and present findings with clear recommendations."]
+                ],
+                growth: "Junior Data Analyst → Data Analyst → Senior Analyst → Analytics Lead or Analytics Manager."
+            },
+            "Data Engineer": {
+                description: "Develop and maintain systems that collect, transform and deliver data for analysis.",
+                responsibilities: "Build data pipelines, transform datasets, manage data quality, work with databases and help ensure data is available reliably.",
+                skills: ["SQL", "Python fundamentals", "Data modeling", "ETL and data pipelines", "Database concepts and cloud fundamentals"],
+                roadmap: [
+                    ["Step 1: Strengthen SQL", "Practise joins, window functions, aggregation and query optimization."],
+                    ["Step 2: Learn Python", "Work with files, functions, data structures and data-processing libraries."],
+                    ["Step 3: Understand pipelines", "Learn ETL/ELT, scheduling, validation and error handling."],
+                    ["Step 4: Build a project", "Create a pipeline that extracts, transforms and loads a dataset."]
+                ],
+                growth: "Junior Data Engineer → Data Engineer → Senior Data Engineer → Data Architect or Engineering Lead."
+            },
+            "Software Tester / QA Engineer": {
+                description: "Check software quality and help teams identify defects before release.",
+                responsibilities: "Understand requirements, prepare test cases, execute tests, document defects and verify fixes.",
+                skills: ["Software testing fundamentals", "Test-case design", "Bug reporting", "SDLC and STLC", "Automation testing basics"],
+                roadmap: [
+                    ["Step 1: Learn testing concepts", "Understand functional, regression, integration and exploratory testing."],
+                    ["Step 2: Practise test design", "Write test cases and clear defect reports for sample applications."],
+                    ["Step 3: Learn tools", "Explore a defect tracker and API testing basics."],
+                    ["Step 4: Explore automation", "Learn a suitable automation tool and build a small test suite."]
+                ],
+                growth: "QA Engineer → Senior QA Engineer → Automation Engineer or QA Lead → Quality Manager."
+            },
+            "Business Analyst": {
+                description: "Bridge business needs and technical delivery by helping define practical solutions.",
+                responsibilities: "Gather requirements, document processes, coordinate stakeholders, analyze gaps and support solution validation.",
+                skills: ["Communication", "Requirements gathering", "Process mapping", "Documentation", "Stakeholder management and analytical thinking"],
+                roadmap: [
+                    ["Step 1: Learn requirements analysis", "Practise interviews, workshops and writing clear requirements."],
+                    ["Step 2: Document processes", "Create process flows, use cases and user stories."],
+                    ["Step 3: Learn delivery methods", "Understand Agile, Scrum and the software development lifecycle."],
+                    ["Step 4: Practise case studies", "Turn a business problem into requirements and acceptance criteria."]
+                ],
+                growth: "Business Analyst → Senior Business Analyst → Lead Analyst → Product Owner or Business Analysis Manager."
+            },
+            "Cybersecurity Analyst": {
+                description: "Help monitor systems, investigate security events and reduce information-security risks.",
+                responsibilities: "Review alerts, investigate suspicious activity, document incidents and support security controls and risk assessments.",
+                skills: ["Networking fundamentals", "Operating-system basics", "Security principles", "Log analysis", "Incident response fundamentals"],
+                roadmap: [
+                    ["Step 1: Learn IT fundamentals", "Study networking, operating systems and access control."],
+                    ["Step 2: Learn security basics", "Understand common threats, vulnerabilities and security controls."],
+                    ["Step 3: Practise safely", "Use authorized labs to learn log analysis and incident investigation."],
+                    ["Step 4: Build evidence of skills", "Complete practical labs and consider relevant entry-level certifications."]
+                ],
+                growth: "Security Analyst → Incident Responder or Security Engineer → Senior Security Specialist → Security Lead."
+            },
+            "Mechanical Engineer": {
+                description: "Design, analyze, test or improve mechanical equipment and systems.",
+                responsibilities: "Support design work, review technical drawings, evaluate performance and coordinate testing or manufacturing activities.",
+                skills: ["Mechanical engineering fundamentals", "CAD tools", "Materials and manufacturing", "Technical analysis", "Documentation"],
+                roadmap: [
+                    ["Step 1: Review fundamentals", "Strengthen mechanics, materials and thermodynamics as relevant to your target role."],
+                    ["Step 2: Practise design tools", "Develop skills in a CAD tool used in your target industry."],
+                    ["Step 3: Learn industry processes", "Study manufacturing, testing and quality requirements."],
+                    ["Step 4: Build a portfolio", "Document relevant design projects, analysis or practical experience."]
+                ],
+                growth: "Graduate Engineer → Mechanical Engineer → Senior Engineer → Design Lead or Engineering Manager."
+            },
+            "Civil Engineer": {
+                description: "Help plan, design and deliver buildings, roads and other infrastructure.",
+                responsibilities: "Interpret drawings, support site execution, coordinate materials and contractors, monitor quality and track project progress.",
+                skills: ["Engineering fundamentals", "Technical drawings", "Construction methods", "Quantity estimation", "Site safety and project coordination"],
+                roadmap: [
+                    ["Step 1: Strengthen core concepts", "Review structural, construction and surveying fundamentals relevant to your chosen area."],
+                    ["Step 2: Read drawings", "Practise interpreting plans, sections and construction details."],
+                    ["Step 3: Learn practical tools", "Explore relevant CAD, estimation or project-planning software."],
+                    ["Step 4: Gain practical exposure", "Build experience through supervised projects, site work or documented case studies."]
+                ],
+                growth: "Graduate Civil Engineer → Site or Design Engineer → Senior Engineer → Project Manager or Technical Specialist."
+            },
+            "Electrical Engineer": {
+                description: "Design, maintain or troubleshoot electrical systems and equipment.",
+                responsibilities: "Support electrical design, review specifications, perform testing and help resolve equipment or system issues.",
+                skills: ["Electrical fundamentals", "Circuit analysis", "Electrical safety", "Testing and troubleshooting", "Technical documentation"],
+                roadmap: [
+                    ["Step 1: Review fundamentals", "Practise circuit theory, electrical machines and power concepts relevant to your target role."],
+                    ["Step 2: Learn design and testing", "Study drawings, specifications and common testing methods."],
+                    ["Step 3: Explore industry tools", "Learn software and standards used in your chosen electrical field."],
+                    ["Step 4: Practise technical scenarios", "Work through troubleshooting cases and document your approach."]
+                ],
+                growth: "Graduate Engineer → Electrical Engineer → Senior Engineer → Design Lead or Engineering Manager."
+            },
+            "Electronics Engineer": {
+                description: "Work on electronic circuits, devices, embedded systems or electronic testing.",
+                responsibilities: "Analyze circuits, test components, troubleshoot faults, review designs and help validate electronic products.",
+                skills: ["Circuit analysis", "Digital and analog electronics", "Testing instruments", "Embedded-system basics", "Troubleshooting"],
+                roadmap: [
+                    ["Step 1: Review electronics", "Strengthen analog, digital and circuit fundamentals."],
+                    ["Step 2: Practise circuit tools", "Use simulation tools and learn to interpret circuit diagrams."],
+                    ["Step 3: Build a small project", "Create or simulate a circuit or embedded-system project."],
+                    ["Step 4: Prepare technical examples", "Document your design choices, tests and troubleshooting process."]
+                ],
+                growth: "Graduate Engineer → Electronics Engineer → Senior Engineer → Embedded Systems Specialist or Design Lead."
+            },
+            "Quality Engineer": {
+                description: "Improve product or process quality by investigating defects and preventing recurrence.",
+                responsibilities: "Analyze defects, document corrective actions, monitor quality metrics and collaborate with teams to improve processes.",
+                skills: ["Root-cause analysis", "Quality standards", "Data analysis", "Documentation", "Process improvement"],
+                roadmap: [
+                    ["Step 1: Learn quality fundamentals", "Study inspection, defect classification and quality metrics."],
+                    ["Step 2: Practise root-cause analysis", "Use structured methods to investigate example problems."],
+                    ["Step 3: Learn improvement tools", "Explore process mapping and continuous-improvement techniques."],
+                    ["Step 4: Present a case study", "Document a problem, its root cause and a measurable improvement plan."]
+                ],
+                growth: "Quality Engineer → Senior Quality Engineer → Quality Lead → Quality Manager."
+            },
+            "Project Engineer": {
+                description: "Coordinate technical tasks, schedules, resources and delivery across engineering projects.",
+                responsibilities: "Track project milestones, coordinate teams, monitor risks, review technical requirements and report progress.",
+                skills: ["Project planning", "Technical fundamentals", "Scheduling", "Risk tracking", "Communication"],
+                roadmap: [
+                    ["Step 1: Understand project delivery", "Learn project phases, milestones, dependencies and project documentation."],
+                    ["Step 2: Practise planning", "Create a sample schedule and track risks and actions."],
+                    ["Step 3: Improve coordination", "Practise status reporting and stakeholder communication."],
+                    ["Step 4: Build a project case study", "Show how you would plan, monitor and report a technical project."]
+                ],
+                growth: "Project Engineer → Senior Project Engineer → Project Manager → Program or Delivery Manager."
+            },
+            "Customer Support Executive": {
+                description: "Help customers resolve questions, service requests and product issues.",
+                responsibilities: "Understand customer concerns, provide accurate information, record cases and escalate issues when needed.",
+                skills: ["Clear communication", "Active listening", "Product knowledge", "Problem-solving", "Case documentation"],
+                roadmap: [
+                    ["Step 1: Practise communication", "Explain solutions clearly and professionally."],
+                    ["Step 2: Learn support workflows", "Understand case logging, prioritization and escalation."],
+                    ["Step 3: Practise scenarios", "Respond to sample customer questions and difficult situations."],
+                    ["Step 4: Prepare examples", "Describe how you would resolve an issue and follow it through."]
+                ],
+                growth: "Support Executive → Senior Support Executive → Team Leader → Operations or Support Manager."
+            },
+            "Technical Support Executive": {
+                description: "Investigate technical problems and guide users through troubleshooting.",
+                responsibilities: "Collect issue details, reproduce problems, test possible fixes, document findings and escalate complex cases.",
+                skills: ["Troubleshooting", "Operating-system basics", "Networking fundamentals", "Communication", "Documentation"],
+                roadmap: [
+                    ["Step 1: Learn technical fundamentals", "Review operating systems, networking and common application issues."],
+                    ["Step 2: Use a troubleshooting method", "Practise gathering evidence, testing causes and recording results."],
+                    ["Step 3: Learn support tools", "Understand ticketing, knowledge bases and remote-support practices."],
+                    ["Step 4: Practise scenarios", "Work through common technical issues and explain your reasoning."]
+                ],
+                growth: "Technical Support Executive → Specialist → Senior Support Engineer → Support Lead or Systems Administrator."
+            },
+            "Quality Analyst": {
+                description: "Evaluate service or process quality and identify opportunities for improvement.",
+                responsibilities: "Review interactions or work samples, apply evaluation criteria, document findings and share improvement feedback.",
+                skills: ["Attention to detail", "Evaluation criteria", "Reporting", "Communication", "Root-cause analysis"],
+                roadmap: [
+                    ["Step 1: Understand quality standards", "Learn how scorecards and evaluation criteria are used."],
+                    ["Step 2: Practise evaluations", "Review sample cases consistently against a checklist."],
+                    ["Step 3: Learn reporting", "Summarize trends, errors and improvement areas."],
+                    ["Step 4: Prepare examples", "Explain how feedback and process changes can improve quality."]
+                ],
+                growth: "Quality Analyst → Senior Analyst → Quality Lead → Quality Manager."
+            },
+            "Team Leader": {
+                description: "Guide a team, support performance and coordinate day-to-day operations.",
+                responsibilities: "Assign work, coach team members, monitor metrics, resolve escalations and communicate priorities.",
+                skills: ["Leadership", "Coaching", "Planning", "Conflict resolution", "Performance reporting"],
+                roadmap: [
+                    ["Step 1: Build communication skills", "Practise clear feedback, active listening and expectation setting."],
+                    ["Step 2: Learn performance metrics", "Understand targets, service levels and reporting."],
+                    ["Step 3: Practise team scenarios", "Work through workload, quality and escalation examples."],
+                    ["Step 4: Demonstrate leadership", "Prepare examples of mentoring, ownership and problem-solving."]
+                ],
+                growth: "Team Leader → Operations Manager → Senior Operations Manager → Function Head."
+            },
+            "Operations Analyst": {
+                description: "Use operational data and process analysis to help improve efficiency and service delivery.",
+                responsibilities: "Prepare reports, monitor performance metrics, investigate process issues and recommend improvements.",
+                skills: ["Excel", "Reporting", "Data analysis", "Process mapping", "Communication"],
+                roadmap: [
+                    ["Step 1: Learn reporting", "Practise spreadsheets, formulas, pivot tables and charts."],
+                    ["Step 2: Understand metrics", "Learn how to measure quality, efficiency and turnaround time."],
+                    ["Step 3: Analyze processes", "Map a workflow and identify bottlenecks."],
+                    ["Step 4: Present recommendations", "Use sample data to explain a problem and a measurable improvement."]
+                ],
+                growth: "Operations Analyst → Senior Analyst → Operations Lead → Operations Manager."
+            },
+            "Project Coordinator": {
+                description: "Keep project activities organized by tracking actions, schedules and communication.",
+                responsibilities: "Arrange meetings, maintain project documentation, follow up on actions and report progress or risks.",
+                skills: ["Organization", "Scheduling", "Documentation", "Communication", "Task tracking"],
+                roadmap: [
+                    ["Step 1: Learn project basics", "Understand scope, milestones, dependencies and project roles."],
+                    ["Step 2: Practise tracking", "Create an action log, schedule and status report."],
+                    ["Step 3: Improve communication", "Practise meeting notes and professional follow-ups."],
+                    ["Step 4: Build a sample project plan", "Track deliverables, owners, deadlines and risks."]
+                ],
+                growth: "Project Coordinator → Project Analyst → Project Manager → Program Manager."
+            },
+            "Human Resources Executive": {
+                description: "Support recruitment, employee services and day-to-day HR processes.",
+                responsibilities: "Coordinate interviews, maintain records, support onboarding and respond to employee process queries.",
+                skills: ["Communication", "Organization", "Confidentiality", "Documentation", "Coordination"],
+                roadmap: [
+                    ["Step 1: Learn HR fundamentals", "Understand recruitment, onboarding and employee lifecycle processes."],
+                    ["Step 2: Practise documentation", "Learn to maintain accurate records and professional communication."],
+                    ["Step 3: Understand HR tools", "Explore common HR information systems and spreadsheet reporting."],
+                    ["Step 4: Prepare scenarios", "Practise interview scheduling, onboarding and employee-query examples."]
+                ],
+                growth: "HR Executive → HR Specialist or Generalist → HR Manager → HR Business Partner or HR Lead."
+            },
+            "Marketing Executive": {
+                description: "Help plan campaigns and communicate products or services to target audiences.",
+                responsibilities: "Research audiences, support campaign execution, prepare content and monitor marketing performance.",
+                skills: ["Communication", "Research", "Content planning", "Creativity", "Basic analytics"],
+                roadmap: [
+                    ["Step 1: Learn marketing basics", "Study audiences, positioning, channels and campaign objectives."],
+                    ["Step 2: Practise content creation", "Prepare sample campaign copy or a content calendar."],
+                    ["Step 3: Learn measurement", "Understand reach, engagement, conversion and campaign reporting."],
+                    ["Step 4: Build a sample campaign", "Define an audience, objective, message and measurement plan."]
+                ],
+                growth: "Marketing Executive → Marketing Specialist → Marketing Manager → Marketing Lead or Head of Marketing."
+            },
+            "Financial Analyst": {
+                description: "Analyze financial results and help support planning and business decisions.",
+                responsibilities: "Prepare reports, compare actuals with plans, investigate variances and support forecasts and budgets.",
+                skills: ["Excel", "Financial statements", "Budgeting and forecasting", "Analytical thinking", "Presentation"],
+                roadmap: [
+                    ["Step 1: Review finance fundamentals", "Understand income statements, balance sheets and cash flows."],
+                    ["Step 2: Improve spreadsheet skills", "Practise formulas, pivot tables and financial models."],
+                    ["Step 3: Learn variance analysis", "Compare actual results with budgets and explain differences."],
+                    ["Step 4: Build a sample report", "Analyze a sample company's financial performance and present findings."]
+                ],
+                growth: "Financial Analyst → Senior Financial Analyst → Finance Manager → Finance Business Partner or Finance Director."
+            },
+            "Accountant": {
+                description: "Maintain financial records and support accurate reporting and compliance.",
+                responsibilities: "Record transactions, reconcile accounts, prepare schedules and support period-end reporting.",
+                skills: ["Accounting principles", "Reconciliation", "Spreadsheets", "Accuracy", "Accounting software"],
+                roadmap: [
+                    ["Step 1: Strengthen accounting basics", "Review journal entries, ledgers and financial statements."],
+                    ["Step 2: Practise reconciliations", "Work through sample bank, vendor and customer reconciliations."],
+                    ["Step 3: Learn tools and controls", "Explore relevant accounting software and documentation practices."],
+                    ["Step 4: Practise reporting", "Prepare sample schedules and explain how you check their accuracy."]
+                ],
+                growth: "Accounts Executive → Accountant → Senior Accountant → Finance Controller or Accounting Manager."
+            },
+            "Accounts Payable / Receivable Specialist": {
+                description: "Manage supplier invoices, customer billing, payments and outstanding balances.",
+                responsibilities: "Validate invoices, process transactions, reconcile accounts, track overdue items and resolve discrepancies.",
+                skills: ["Accounting basics", "Invoice processing", "Reconciliation", "Excel", "Attention to detail"],
+                roadmap: [
+                    ["Step 1: Learn transaction basics", "Understand invoices, credit notes, payment terms and ledger entries."],
+                    ["Step 2: Practise reconciliations", "Match transactions and investigate sample discrepancies."],
+                    ["Step 3: Learn process controls", "Study approvals, documentation and exception handling."],
+                    ["Step 4: Prepare process examples", "Explain how you would resolve a mismatch or overdue balance."]
+                ],
+                growth: "AP/AR Specialist → Senior Specialist → Process Lead → Finance Operations Manager."
+            },
+            "Business Operations Analyst": {
+                description: "Analyze business processes and performance data to identify improvement opportunities.",
+                responsibilities: "Prepare reports, investigate trends, map workflows and recommend changes to improve business outcomes.",
+                skills: ["Excel", "Data analysis", "Process mapping", "Reporting", "Stakeholder communication"],
+                roadmap: [
+                    ["Step 1: Learn reporting tools", "Practise spreadsheets and clear visual reporting."],
+                    ["Step 2: Study process analysis", "Map a workflow and identify bottlenecks or duplication."],
+                    ["Step 3: Measure performance", "Define useful metrics and compare results over time."],
+                    ["Step 4: Present an improvement case", "Recommend a change supported by sample data."]
+                ],
+                growth: "Operations Analyst → Senior Analyst → Business Operations Lead → Operations Manager."
+            },
+            "Healthcare Administrator": {
+                description: "Coordinate administrative processes that support healthcare services.",
+                responsibilities: "Help manage schedules, records, service workflows, resource coordination and administrative reporting.",
+                skills: ["Organization", "Communication", "Scheduling", "Record management", "Process coordination"],
+                roadmap: [
+                    ["Step 1: Learn healthcare operations", "Understand common administrative workflows and terminology."],
+                    ["Step 2: Practise coordination", "Work through scheduling, resource and documentation scenarios."],
+                    ["Step 3: Learn data privacy basics", "Understand the importance of confidentiality and appropriate access."],
+                    ["Step 4: Build relevant experience", "Explore entry-level administration roles and applicable local requirements."]
+                ],
+                growth: "Administrative Coordinator → Healthcare Administrator → Operations Manager → Healthcare Operations Lead."
+            },
+            "Health Information Specialist": {
+                description: "Help maintain accurate, organized and appropriately protected healthcare information.",
+                responsibilities: "Organize records, validate information, support record retrieval and follow confidentiality and documentation procedures.",
+                skills: ["Record management", "Accuracy", "Data privacy", "Digital tools", "Documentation"],
+                roadmap: [
+                    ["Step 1: Understand health records", "Learn basic record-management concepts and terminology."],
+                    ["Step 2: Practise data accuracy", "Work with sample records and identify inconsistencies."],
+                    ["Step 3: Learn privacy principles", "Understand authorized access, confidentiality and secure handling."],
+                    ["Step 4: Check role requirements", "Research the qualifications and training expected by employers in your region."]
+                ],
+                growth: "Health Information Assistant → Specialist → Records or Information Coordinator → Information Management Lead."
+            },
+            "Graphic Designer": {
+                description: "Create visual materials for brands, campaigns, products and communications.",
+                responsibilities: "Develop layouts, prepare graphics, refine designs using feedback and deliver assets in required formats.",
+                skills: ["Visual composition", "Typography", "Color theory", "Design software", "Creative problem-solving"],
+                roadmap: [
+                    ["Step 1: Learn design fundamentals", "Practise layout, typography, contrast and visual hierarchy."],
+                    ["Step 2: Learn a design tool", "Create assets using a suitable graphics editor."],
+                    ["Step 3: Build a portfolio", "Develop several original designs for different purposes."],
+                    ["Step 4: Practise presenting work", "Explain the brief, design decisions and revisions for each project."]
+                ],
+                growth: "Junior Designer → Graphic Designer → Senior Designer → Art Director or Design Lead."
+            },
+            "UI/UX Designer": {
+                description: "Design digital products and experiences that help users complete tasks clearly and effectively.",
+                responsibilities: "Research user needs, create wireframes and prototypes, test usability and collaborate with product and engineering teams.",
+                skills: ["User research", "Wireframing", "Prototyping", "Visual design", "Usability testing"],
+                roadmap: [
+                    ["Step 1: Learn user-centered design", "Study usability principles and how to understand user needs."],
+                    ["Step 2: Practise wireframes", "Map user flows and create low-fidelity screens."],
+                    ["Step 3: Build prototypes", "Use a design tool to create an interactive sample."],
+                    ["Step 4: Create case studies", "Explain the problem, design decisions, feedback and final outcome."]
+                ],
+                growth: "Junior Designer → UI/UX Designer → Senior Designer → Product Design Lead or Design Manager."
+            },
+            "Content Writer": {
+                description: "Research and create clear written content for websites, products and target audiences.",
+                responsibilities: "Research topics, draft content, edit for clarity and accuracy, and adapt writing to audience and purpose.",
+                skills: ["Writing", "Research", "Editing", "Audience awareness", "Content organization"],
+                roadmap: [
+                    ["Step 1: Practise clear writing", "Write short pieces for different audiences and purposes."],
+                    ["Step 2: Learn research and editing", "Check claims, organize information and improve readability."],
+                    ["Step 3: Create a portfolio", "Prepare samples such as articles, website copy or product explanations."],
+                    ["Step 4: Learn content strategy", "Understand briefs, tone, search intent and content performance."]
+                ],
+                growth: "Content Writer → Senior Writer → Content Strategist → Content Lead or Editorial Manager."
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const role = params.get("role") || "";
+        const career = careerDetails[role];
+
+        const titleElement = document.getElementById("roleTitle");
+        const interviewButton = document.getElementById("interviewButton");
+
+        function addListItem(list, text) {
+            const item = document.createElement("li");
+            item.textContent = text;
+            list.appendChild(item);
+        }
+
+        if (!career) {
+            titleElement.textContent = "Career details unavailable";
+            document.getElementById("roleDescription").textContent =
+                "We could not find details for this career. Please return to your recommendations and select a role.";
+
+            document.getElementById("responsibilities").textContent =
+                "Choose a career from the recommendations page to view its guide.";
+
+            document.getElementById("skillsList").textContent = "";
+            document.getElementById("roadmap").textContent = "";
+            document.getElementById("careerGrowth").textContent = "";
+            interviewButton.hidden = true;
+        } else {
+            titleElement.textContent = role;
+            document.title = role + " | CareerPrep AI";
+
+            document.getElementById("roleDescription").textContent =
+                career.description;
+
+            document.getElementById("responsibilities").textContent =
+                career.responsibilities;
+
+            const skillsList = document.getElementById("skillsList");
+            career.skills.forEach(function(skill) {
+                addListItem(skillsList, skill);
+            });
+
+            const roadmap = document.getElementById("roadmap");
+
+            career.roadmap.forEach(function(step) {
+                const stepElement = document.createElement("div");
+                stepElement.className = "roadmap-step";
+
+                const heading = document.createElement("h3");
+                heading.textContent = step[0];
+
+                const description = document.createElement("p");
+                description.textContent = step[1];
+
+                stepElement.appendChild(heading);
+                stepElement.appendChild(description);
+                roadmap.appendChild(stepElement);
+            });
+
+            document.getElementById("careerGrowth").textContent =
+                career.growth;
+
+            interviewButton.href = "interview.html";
+
+            interviewButton.addEventListener("click", function() {
+                try {
+                    const savedProfile = sessionStorage.getItem("careerPrepCareerProfile");
+                    const profile = savedProfile ? JSON.parse(savedProfile) : {};
+
+                    sessionStorage.setItem(
+                        "careerPrepSelectedRole",
+                        JSON.stringify({
+                            title: role,
+                            stream: profile.careerStream || "Not sure yet"
+                        })
+                    );
+                } catch (error) {
+                    // Interview preparation remains accessible if storage is unavailable.
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+```
