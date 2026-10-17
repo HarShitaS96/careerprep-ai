@@ -1,4 +1,4 @@
-```css
+
 /* =========================
    1. GLOBAL STYLES
 ========================= */
@@ -153,31 +153,69 @@ body {
 ========================= */
 
 .card-button {
-    display: inline-block;
-    background: #5145d9;
-    color: white;
-    text-decoration: none;
-    padding: 13px 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 18px;
+    border: 1px solid #5145d9;
     border-radius: 9px;
+    background: #5145d9;
+    color: #ffffff;
+    font-family: inherit;
     font-size: 14px;
     font-weight: bold;
-    border: none;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease,
+                transform 0.2s ease;
 }
 
 .card-button:hover {
     background: #3f35b5;
-    transform: translateY(-2px);
+    border-color: #3f35b5;
+    transform: translateY(-1px);
+}
+
+.card-button:disabled {
+    background: #d7d9e5;
+    color: #73798a;
+    border-color: #d7d9e5;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .card-button.secondary {
     background: #5145d9;
-    color: white;
+    color: #ffffff;
 }
 
-.card-button.secondary:hover {
-    background: #e0dcff;
+/* Standard outlined secondary action */
+.secondary-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 18px;
+    border: 1px solid #d9deea;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #5145d9;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.secondary-action:hover {
+    background: #f0efff;
+    border-color: #5145d9;
 }
 
 /* =========================
@@ -314,6 +352,10 @@ footer {
     }
 }
 
+/* =========================
+   10. FORM AND REVIEW STYLES
+========================= */
+
 .form-heading {
     font-size: 20px;
     margin-bottom: 22px;
@@ -324,13 +366,6 @@ footer {
     height: 1px;
     background: #e8eaf2;
     margin: 32px 0;
-}
-
-.setup-card button:disabled {
-    background: #d7d9e5;
-    color: #73798a;
-    cursor: not-allowed;
-    transform: none;
 }
 
 .review-panel {
@@ -361,57 +396,124 @@ footer {
 }
 
 /* =========================
-   10. CAREER DETAILS BUTTONS
+   11. SHARED BUTTON GROUPS
+   Used by form-actions, page-actions and actions
 ========================= */
 
+.form-actions,
+.page-actions,
 .actions {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: stretch;
     gap: 14px;
-    margin: 28px 0;
+    margin-top: 28px;
+    width: 100%;
 }
 
-.actions a {
+/* Make paired buttons consistent in size and alignment */
+.form-actions > a,
+.form-actions > button,
+.page-actions > a,
+.page-actions > button,
+.actions > a,
+.actions > button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
+    flex: 1 1 180px;
+    min-width: 0;
     min-height: 46px;
+    margin: 0;
     padding: 12px 18px;
     border: 1px solid #d9deea;
     border-radius: 9px;
-    text-decoration: none;
-    text-align: center;
-    line-height: 1.4;
+    box-sizing: border-box;
+    font-family: inherit;
     font-size: 14px;
     font-weight: bold;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
 }
 
-.actions .card-button {
-    margin: 0;
-    border: 1px solid #5145d9;
+/* Primary button in any shared button group */
+.form-actions > .card-button,
+.page-actions > .card-button,
+.actions > .card-button {
+    background: #5145d9;
+    color: #ffffff;
+    border-color: #5145d9;
 }
 
-.actions .secondary-action {
+.form-actions > .card-button:hover,
+.page-actions > .card-button:hover,
+.actions > .card-button:hover {
+    background: #3f35b5;
+    border-color: #3f35b5;
+}
+
+/* Secondary button in any shared button group */
+.form-actions > .secondary-action,
+.page-actions > .secondary-action,
+.actions > .secondary-action {
     background: #ffffff;
     color: #5145d9;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    border-color: #d9deea;
 }
 
-.actions .secondary-action:hover {
+.form-actions > .secondary-action:hover,
+.page-actions > .secondary-action:hover,
+.actions > .secondary-action:hover {
     background: #f0efff;
     border-color: #5145d9;
 }
 
+/* Ensure buttons retain their alignment when disabled */
+.form-actions > button:disabled,
+.page-actions > button:disabled,
+.actions > button:disabled {
+    background: #d7d9e5;
+    color: #73798a;
+    border-color: #d7d9e5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================
+   12. CAREER RECOMMENDATION CARDS
+========================= */
+
+.career-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.career-card > .card-button {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+/* =========================
+   13. MOBILE BUTTON ALIGNMENT
+========================= */
+
 @media (max-width: 480px) {
+    .form-actions,
+    .page-actions,
     .actions {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
     }
 
-    .actions a {
+    .form-actions > a,
+    .form-actions > button,
+    .page-actions > a,
+    .page-actions > button,
+    .actions > a,
+    .actions > button {
+        flex: 1 1 auto;
         width: 100%;
     }
 }
-```
