@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,9 +51,21 @@
         }
 
         .career-card .card-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
             align-self: flex-start;
+            min-height: 44px;
             margin-top: auto;
+            padding: 12px 18px;
+            border: 1px solid #5145d9;
+            border-radius: 9px;
             text-decoration: none;
+            text-align: center;
+            line-height: 1.4;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         .tag {
@@ -66,20 +78,68 @@
             font-weight: 600;
         }
 
+        /* Consistent styling for both bottom navigation buttons */
         .page-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 30px;
+            align-items: center;
+            gap: 14px;
+            margin: 30px 0;
         }
 
         .page-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            min-height: 46px;
+            padding: 12px 18px;
+            border: 1px solid #d9deea;
+            border-radius: 9px;
             text-decoration: none;
+            text-align: center;
+            line-height: 1.4;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .page-actions .card-button {
+            background: #5145d9;
+            color: #ffffff;
+            border-color: #5145d9;
+        }
+
+        .page-actions .card-button:hover {
+            background: #4035bd;
+            border-color: #4035bd;
+        }
+
+        .page-actions .secondary-action {
+            background: #ffffff;
+            color: #5145d9;
+            border-color: #d9deea;
+        }
+
+        .page-actions .secondary-action:hover {
+            background: #f0efff;
+            border-color: #5145d9;
         }
 
         .helper-text {
             color: #626b7d;
             line-height: 1.7;
+        }
+
+        @media (max-width: 480px) {
+            .page-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .page-actions a {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -407,7 +467,7 @@
                         })
                     );
                 } catch (error) {
-                    // Interview preparation remains accessible if storage is unavailable.
+                    // Career details remain accessible if storage is unavailable.
                 }
             });
 
@@ -502,4 +562,3 @@
 
 </body>
 </html>
-```
